@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwagSwipe - Swipe</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <script defer src="./assets/js/swipe.js"></script>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <header>
+        <div class="logo" onclick="window.location.href='accueil.html'">🛍️</div>
+        <h1 onclick="window.location.href='swipe.html'">SwagSwipe</h1>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='connexion.html'">Connexion</button>
+            <button onclick="window.location.href='inscription.html'">Inscription</button>
+        </div>
+    </header>
+
+    <nav>
+        <button onclick="window.location.href='accueil.html'">Accueil</button>
+        <button onclick="window.location.href='afficher_produits.html'">Produits</button>
+        <button onclick="window.location.href='favoris.html'">Favoris</button>
+        <button onclick="window.location.href='profil.html'">Profil</button>
+        <button id="reset-btn">🔄 Réinitialiser test</button>
+
+    </nav>
+
+    <!-- Conteneur principal du Swipe -->
+    <section id="swipe-container">
+        <div id="product-card" class="product-card">
+            <img id="product-image" src="" alt="Produit">
+            <h2 id="product-name"></h2>
+            <p id="product-price"></p>
+            <p id="product-category"></p>
+            <p id="product-description"></p>
+        </div>
+        <div class="swipe-actions">
+            <button id="reject-btn">✖️</button>
+            <button id="accept-btn">❤️</button>
+        </div>
+    </section>
+
+    <!-- Effets visuels (coeur et croix) -->
+    <div id="swipe-feedback" class="swipe-feedback"></div>
+
+    <!-- Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>📧 Email: support@swagswipe.com</p>
+                <p>📞 Téléphone: +1 234 567 890</p>
+                <p>📍 Adresse: 123, Rue du Style, Montréal</p>
+            </div>
+            <div class="footer-center">
+                <img src="./assets/img/logo.png" alt="SwagSwipe Logo" class="footer-logo">
+            </div>
+            <div class="footer-right">
+                <a href="#">📱 Télécharger l'application</a>
+                <a href="avis.html">⭐ Avis des utilisateurs</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

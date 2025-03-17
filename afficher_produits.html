@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwagSwipe - Affichage des Produits</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <script defer src="./assets/js/scripts.js"></script>
+    <script src="./assets/js/scripts.js"></script>
+    
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="logo" onclick="window.location.href='accueil.html'">🛍️</div>
+        <h1 onclick="window.location.href='swipe.html'">SwagSwipe</h1>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='connexion.html'">Connexion</button>
+            <button onclick="window.location.href='inscription.html'">Inscription</button>
+        </div>
+    </header>
+
+    <!-- Barre de Navigation -->
+    <nav>
+        <button onclick="window.location.href='accueil.html'">Accueil</button>
+        <button class="active">Produits</button>
+        <button onclick="window.location.href='favoris.html'">Favoris</button>
+        <button onclick="window.location.href='profil.html'">Profil</button>
+    </nav>
+
+    <!-- Barre de Recherche & Filtres -->
+    <div class="search-filter">
+        <input type="text" id="searchBar" placeholder="Rechercher un produit...">
+        <select id="filterCategory">
+            <option value="">Tous les types</option>
+            <option value="chandail">Chandail</option>
+            <option value="pantalon">Pantalon</option>
+            <option value="shorts">Shorts</option>
+            <option value="chapeau">Chapeau</option>
+            <option value="plein_air">Vêtements plein air</option>
+            <option value="robe">Robe</option>
+            <option value="jupe">Jupe</option>
+            <option value="camisole">Camisole</option>
+            <option value="soulier">Soulier</option>
+        </select>
+        <select id="sortOptions">
+            <option value="prix-desc">Prix décroissant</option>
+            <option value="prix-asc">Prix croissant</option>
+            <option value="alpha-asc">A-Z</option>
+            <option value="alpha-desc">Z-A</option>
+        </select>
+    </div>
+
+    <!-- Grille d'affichage des produits -->
+    <section id="productGrid" class="grid-container">
+        <!-- Les produits seront injectés ici via JS -->
+    </section>
+
+    <!-- Chargement infini -->
+    <div id="loading" class="loading">Chargement...</div>
+
+    <!-- ✅ Pied de page -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>📧 Email: support@swagswipe.com</p>
+                <p>📞 Téléphone: +1 234 567 890</p>
+                <p>📍 Adresse: 123, Rue du Style, Montréal</p>
+            </div>
+            <div class="footer-center">
+                <img src="./assets/img/logo.png" alt="SwagSwipe Logo" class="footer-logo">
+            </div>
+            <div class="footer-right">
+                <a href="#">📱 Télécharger l'application</a>
+                <a href="avis.html">⭐ Avis des utilisateurs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

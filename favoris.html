@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwagSwipe - Favoris</title>
+    <script defer src="./assets/js/favoris.js"></script>
+    <link rel="stylesheet" href="./assets/css/styleAccueil.css">
+    <link rel="stylesheet" href="./assets/css/styleFavoris.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class = "body-style" >
+    <!-- En-tête -->
+    <header class="header-style">
+        <img src="/assets/img/logo2_transparent.png" alt="logo" class="logo">
+        <div class="top-right-buttons">
+            <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
+            <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
+        </div>
+        <h1>SwagSwipe</h1>
+        <p class ="slogan">Le style à petit prix</p>
+        <div class="nav-style">
+            <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+            <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+            <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+            <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+        </div>
+        <section class="favorites-header">
+            <h2>🧡 Mes Favoris</h2>
+            <button id="clearFavorites" class="btn-clear">🗑️ Vider les Favoris</button>
+        </section>
+        
+    </header>
+
+    
+
+    <!-- Grille d'affichage des favoris -->
+    <section id="favoritesGrid" class="grid-container">
+        <!-- Produits favoris injectés ici via JS -->
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <div class="grid-container">
+                    <div class="grid-item">
+
+                     <!--Section Contact -->
+                     <h2>Contact</h2>
+
+                     <p> <img src ="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt = "Email " class="icon" > 
+                        <span>support@swagswipe.com</span>
+                    </p>
+
+                    <p> <img src ="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt = "Adresse" class="icon" > 
+                        <span>6435 Rue du Style, Montréal, J2M 8R5, QC</span>
+                    </p>
+
+                     <p> <img src ="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt = "Numero de téléphone" class="icon" > 
+                        <span>+1 (514) 547-8965</span>
+                    </p>
+                  
+                    </div>
+
+                    <!--Section Logo -->
+                    <div class="grid-item">
+                        <img src="logo.png" class="Logo">
+                    </div>
+
+                    <!--Section Réseau -->
+                    <div class="grid-item">
+                        <h1>Suivez SwagSwipe</h1>
+                        <a href=""><img src="logo.png" alt="Application" class="Application"></a>
+                        <a href="avis.html"><img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application"></a>
+                        
+                        </div>
+                    
+                </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="footer">
+        <p>&copy; 2025 SwagSwipe</p>
+    </div>
+
+</body>
+</html>
+    

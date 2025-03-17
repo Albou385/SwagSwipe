@@ -1,0 +1,194 @@
+[
+    {
+      "id": 1,
+      "name": "Hoodie Stylish",
+      "price": 39.99,
+      "image": "./assets/img/hoodie_test3.jpg",
+      "category": "chandail",
+      "description": "Un hoodie tendance parfait pour toutes les saisons.",
+      "size": "M",
+      "condition": "Très bon état",
+      "brand": "Nike",
+      "seller": "Utilisateur123",
+      "location": "Montréal, QC",
+      "date_added": "2025-03-10",
+      "features": [
+        "Coton doux et confortable",
+        "Capuche ajustable",
+        "Poche kangourou"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Polo Casual",
+      "price": 24.99,
+      "image": "./assets/img/polo_test2.jpg",
+      "category": "chandail",
+      "description": "Un polo élégant pour une tenue chic et décontractée.",
+      "size": "L",
+      "condition": "Comme neuf",
+      "brand": "Ralph Lauren",
+      "seller": "Utilisateur456",
+      "location": "Laval, QC",
+      "date_added": "2025-03-08",
+      "features": [
+        "Tissu respirant",
+        "Boutonnière renforcée",
+        "Lavable en machine"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Soulier Sport",
+      "price": 59.99,
+      "image": "./assets/img/soulier_test4.jpg",
+      "category": "soulier",
+      "description": "Des souliers de sport légers et confortables pour la course.",
+      "size": "42",
+      "condition": "Bon état",
+      "brand": "Adidas",
+      "seller": "Utilisateur789",
+      "location": "Québec, QC",
+      "date_added": "2025-03-05",
+      "features": [
+        "Semelle antidérapante",
+        "Tissu respirant",
+        "Légèreté optimale"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Veste en denim",
+      "price": 34.99,
+      "image": "./assets/img/veste_test1.jpg",
+      "category": "plein_air",
+      "description": "Une veste en denim intemporelle pour un style classique.",
+      "size": "M",
+      "condition": "Très bon état",
+      "brand": "Levi's",
+      "seller": "Utilisateur101",
+      "location": "Trois-Rivières, QC",
+      "date_added": "2025-03-03",
+      "features": [
+        "100% denim robuste",
+        "Coupe ajustée",
+        "Poches fonctionnelles"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Camisole Légère",
+      "price": 14.99,
+      "image": "./assets/img/camisole_test10.webp",
+      "category": "camisole",
+      "description": "Une camisole légère et confortable pour la saison estivale.",
+      "size": "S",
+      "condition": "Bon état",
+      "brand": "H&M",
+      "seller": "Utilisateur555",
+      "location": "Longueuil, QC",
+      "date_added": "2025-03-12",
+      "features": [
+        "Tissu respirant",
+        "Coupe ample",
+        "Lavable en machine"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Chapeau d'Été",
+      "price": 19.99,
+      "image": "./assets/img/chapeau_test7.webp",
+      "category": "chapeau",
+      "description": "Un chapeau élégant pour se protéger du soleil tout en restant stylé.",
+      "size": "Taille unique",
+      "condition": "Comme neuf",
+      "brand": "Zara",
+      "seller": "Utilisateur222",
+      "location": "Lévis, QC",
+      "date_added": "2025-03-11",
+      "features": [
+        "Léger et pliable",
+        "Bord large",
+        "Tissu anti-UV"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Jupe Florale",
+      "price": 29.99,
+      "image": "./assets/img/jupe_test9.webp",
+      "category": "jupe",
+      "description": "Une jupe colorée et fleurie, parfaite pour les beaux jours.",
+      "size": "M",
+      "condition": "Très bon état",
+      "brand": "Forever 21",
+      "seller": "Utilisateur999",
+      "location": "Sherbrooke, QC",
+      "date_added": "2025-03-10",
+      "features": [
+        "Motif floral",
+        "Taille élastique",
+        "Doublure légère"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Pantalon Décontracté",
+      "price": 24.99,
+      "image": "./assets/img/pantalon_test5.jpg",
+      "category": "pantalon",
+      "description": "Un pantalon confortable pour une tenue de tous les jours.",
+      "size": "L",
+      "condition": "Bon état",
+      "brand": "Gap",
+      "seller": "Utilisateur321",
+      "location": "Drummondville, QC",
+      "date_added": "2025-03-09",
+      "features": [
+        "Coton extensible",
+        "Coupe droite",
+        "Poches latérales"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Robe Élégante",
+      "price": 39.99,
+      "image": "./assets/img/robe_test8.jpg",
+      "category": "robe",
+      "description": "Une robe chic pour les soirées ou événements spéciaux.",
+      "size": "M",
+      "condition": "Comme neuf",
+      "brand": "Dynamite",
+      "seller": "Utilisateur147",
+      "location": "Montréal, QC",
+      "date_added": "2025-03-08",
+      "features": [
+        "Tissu satiné",
+        "Fermeture éclair discrète",
+        "Coupe ajustée"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Short Confortable",
+      "price": 12.99,
+      "image": "./assets/img/short_test6.webp",
+      "category": "shorts",
+      "description": "Un short léger et extensible, idéal pour le sport ou la détente.",
+      "size": "S",
+      "condition": "Très bon état",
+      "brand": "Under Armour",
+      "seller": "Utilisateur777",
+      "location": "Gatineau, QC",
+      "date_added": "2025-03-07",
+      "features": [
+        "Tissu élastique",
+        "Taille ajustable",
+        "Séchage rapide"
+      ]
+    }
+  ]
+  
+  
