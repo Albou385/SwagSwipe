@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/styleAccueil.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Ajouter un Produit</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: black;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            background-color: black;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+    <script>
+        function verifierChamps() {
+            let nomProduit = document.getElementById("nom_produit").value.trim();
+            let marque = document.getElementById("marque_produit").value.trim();
+            let prix = document.getElementById("prix_produit").value.trim();
+            let grandeur = document.getElementById("grandeur_produit").value;
+            let type = document.getElementById("type_produit").value;
+            let fichier = document.getElementById("fichier_produit").files.length;
+            let description = document.getElementById("description_produit").value.trim();
+
+            let bouton = document.getElementById("btnAjouter");
+
+            // Vérifie si tous les champs sont remplis
+            bouton.disabled = (nomProduit === "" || marque === "" || prix === "" || grandeur === "" || type === "" || fichier === 0 || description === "");
+        }
+    </script>
+</head>
+
+    <body class="body-style">
+        <header class="header-style">
+            <img src="/assets/img/logo.png" alt="logo" class="logo">
+            <div class="top-right-buttons">
+                <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
+                <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
+            </div>
+            <h1 class="site-title">
+                <a href="swipe.html">SwagSwipe</a>
+            </h1>    
+            <p class ="slogan">Le style à petit prix</p>
+            <div class="nav-style">
+                <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+                <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+                <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+                <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+            </div>
+        </header>
+<div class="container">
+    <h1>Ajouter un Produit</h1>
+
+    <form action="ajouter_produit_traitement.php" method="POST" enctype="multipart/form-data">
+        <label for="nom_produit">Nom du produit</label>
+        <input type="text" id="nom_produit" name="nom_produit" required oninput="verifierChamps()">
+
+        <label for="marque_produit">Marque du produit</label>
+        <input type="text" id="marque_produit" name="marque_produit" required oninput="verifierChamps()">
+
+        <label for="prix_produit">Prix du produit ($)</label>
+        <input type="number" id="prix_produit" name="prix_produit" required oninput="verifierChamps()" step="0.01">
+
+        <label for="grandeur_produit">Grandeur</label>
+        <select id="grandeur_produit" name="grandeur_produit" required onchange="verifierChamps()">
+            <option value="">-- Sélectionnez une grandeur --</option>
+            <option value="small">Extra Small</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="extra_large">Extra Large</option>
+        </select>
+
+        <label for="type_produit">Type de produit</label>
+        <select id="type_produit" name="type_produit" required onchange="verifierChamps()">
+            <option value="">-- Sélectionnez un type --</option>
+            <option value="chandail">Chandail</option>
+            <option value="pantalon">Pantalon</option>
+            <option value="short">Short</option>
+            <option value="chapeau">Chapeau</option>
+            <option value="robe">Robe</option>
+            <option value="jupe">Jupe</option>
+            <option value="camisole">Camisole</option>
+        </select>
+
+        <label for="fichier_produit">Ajouter une image (png uniquement)</label>
+        <input type="file" id="fichier_produit" name="fichier_produit" accept="application/png" required onchange="verifierChamps()">
+
+        <label for="description_produit">Description du produit</label>
+        <textarea id="description_produit" name="description_produit" rows="4" required oninput="verifierChamps()" placeholder="Décrivez le produit ici..."></textarea>
+
+        <button id="btnAjouter" type="submit" disabled>Ajouter le produit</button>
+    </form>
+</div>
+<br>
+<br>
+<footer>
+    <div class="grid-container">
+        <!-- Section Contact -->
+        <div class="grid-item">
+            <h2>Contact</h2>
+            <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
+            <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+            <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
+        </div>
+
+        <!-- Section Logo -->
+        <div class="grid-item">
+            <a href="#top">
+                <img src="assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+            </a>
+        </div>
+
+        <!-- Section Réseaux et App -->
+        <div class="grid-item">
+            <div class="footer-app-review">
+                <!-- Bloc App -->
+                <div class="footer-app">
+                    <a href="#">
+                        <img src="assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                        <p>Télécharger l'app</p>
+                    </a>
+                </div>
+
+                <!-- Bloc Avis -->
+                <div class="footer-review">
+                    <a href="avis.html">
+                        <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
+                        <p class="review-text">Laisser un avis</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="droit_auteur">
+        <p>&copy; 2025 SwagSwipe</p>
+    </div>
+</footer>
+</body>
+</html>
+

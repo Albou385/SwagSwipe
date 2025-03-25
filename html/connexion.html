@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SwagSwipe</title>
+        <link rel="stylesheet" href="./assets/css/styleConnexion.css">
+        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page de Connexion</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            
+        }
+        h1 {
+            text-align: center;
+            color: black;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: rgb(120, 122, 124);
+            color: #fff;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .form-section {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .form-item {
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+    <script>
+        function validerFormulaire(event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const motDePasse = document.getElementById("mot_de_passe").value.trim();
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const erreurs = [];
+
+            if (!email) {
+                erreurs.push("L'adresse courriel est requise.");
+            } else if (!emailRegex.test(email)) {
+                erreurs.push("L'adresse courriel n'est pas valide.");
+            }
+
+            if (!motDePasse) { //à changer
+                erreurs.push("Le mot de passe est requis.");
+            } else if (motDePasse.length < 6) {
+                erreurs.push("Le mot de passe doit contenir au moins 6 caractères.");
+            }
+
+            const messageErreur = document.getElementById("message-erreur");
+            messageErreur.innerHTML = "";
+
+            if (erreurs.length > 0) {
+                messageErreur.innerHTML = erreurs.map(e => `<p>${e}</p>`).join("");
+                messageErreur.style.display = "block";
+                return false;
+            }
+
+            messageErreur.style.display = "none";
+            alert("Connexion validée, fonctionnalité à venir.");
+            return false;
+        }
+    </script>
+    <style>
+        #message-erreur {
+            color: red;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body class="body-style">
+    <header class="header-style">
+        <img src="/assets/img/logo.png" alt="logo" class="logo">
+        <div class="top-right-buttons">
+            <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
+            <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
+        </div>
+        <h1 class="site-title">
+            <a href="swipe.html">SwagSwipe</a>
+        </h1>
+        <p class="slogan">Le style à petit prix</p>
+        <div class="nav-style">
+            <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+            <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+            <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+            <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Connexion à votre compte</h1>
+        <form onsubmit="return validerFormulaire(event)">
+            <div id="message-erreur"></div>
+            <div class="form-section">
+                <div class="form-item">
+                    <label for="email">Adresse Courriel</label>
+                    <input type="email" id="email" name="email" placeholder="exemple@domaine.com">
+                </div>
+
+                <div class="form-item">
+                    <label for="mot_de_passe">Mot de Passe</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Votre mot de passe">
+                </div>
+            </div>
+            <button class="button" type="submit">Se Connecter</button>
+            <div class="link-container">
+                <p>Pas encore de compte ? <a href="creation_utilisateur.html">Créer un compte</a></p>
+            </div>
+        </form>
+    </div>
+
+
+<footer>
+    <div class="grid-container">
+        <!-- Section Contact -->
+        <div class="grid-item">
+            <h2>Contact</h2>
+            <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
+            <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+            <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
+        </div>
+
+        <!-- Section Logo -->
+        <div class="grid-item">
+            <a href="#top">
+                <img src="assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+            </a>
+        </div>
+
+        <!-- Section Réseaux et App -->
+        <div class="grid-item">
+            <div class="footer-app-review">
+                <!-- Bloc App -->
+                <div class="footer-app">
+                    <a href="#">
+                        <img src="assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                        <p>Télécharger l'app</p>
+                    </a>
+                </div>
+
+                <!-- Bloc Avis -->
+                <div class="footer-review">
+                    <a href="avis.html">
+                        <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
+                        <p class="review-text">Laisser un avis</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="droit_auteur">
+        <p>&copy; 2025 SwagSwipe</p>
+    </div>
+</footer>
+
+</body>
+</html>

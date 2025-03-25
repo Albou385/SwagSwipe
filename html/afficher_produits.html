@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwagSwipe - Affichage des Produits</title>
+    <script defer src="./assets/js/scripts.js"></script>
+    <script src="./assets/js/scripts.js"></script>
+    <link rel="stylesheet" href="./assets/css/styleAfficher_Produits.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="body-style">
+    <!-- ✅ Ajout du flou derrière les produits -->
+    <div class="products-blur-background"></div>
+
+        <!-- En-tête -->
+        <header class="header-style">
+            <img src="/assets/img/logo.png" alt="logo" class="logo">
+            <div class="top-right-buttons">
+                <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
+                <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
+            </div>
+            <h1 class="site-title">
+                <a href="swipe.html">SwagSwipe</a>
+            </h1>    
+            <p class="slogan">Le style à petit prix</p>
+            <div class="nav-style">
+                <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+                <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+                <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+                <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+            </div>
+
+            <!-- Barre de Recherche & Filtres -->
+            <div class="search-filter">
+                <input type="text" id="searchBar" placeholder="Rechercher un produit...">
+                <select id="filterCategory">
+                    <option value="">Tous les types</option>
+                    <option value="chandail">Chandail</option>
+                    <option value="pantalon">Pantalon</option>
+                    <option value="shorts">Shorts</option>
+                    <option value="chapeau">Chapeau</option>
+                    <option value="plein_air">Vêtements plein air</option>
+                    <option value="robe">Robe</option>
+                    <option value="jupe">Jupe</option>
+                    <option value="camisole">Camisole</option>
+                </select>
+                <select id="sortOptions">
+                    <option value="prix-desc">Prix décroissant</option>
+                    <option value="prix-asc">Prix croissant</option>
+                    <option value="alpha-asc">A-Z</option>
+                    <option value="alpha-desc">Z-A</option>
+                </select>
+            </div>
+        </header>
+
+
+            <!-- ✅ Conteneur principal des produits -->
+    <div class="products-content-container">
+        <!-- ✅ Grille d'affichage des produits -->
+        <section id="productGrid" class="grid-container">
+            <!-- Les produits seront injectés ici via JS -->
+        </section>
+
+        <div class="produit_chargement">
+            <!-- Chargement infini -->
+            <div id="loading" class="loading">Chargement...</div>
+        </div>
+
+    </div> <!-- ✅ Fermeture du conteneur produits -->
+
+    <!-- ✅ Pied de page -->
+    <footer>
+        <div class="grid-container">
+            <!-- Section Contact -->
+            <div class="grid-item">
+                <h2>Contact</h2>
+                <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
+                <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+                <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
+            </div>
+    
+            <!-- Section Logo -->
+            <div class="grid-item">
+                <a href="#top">
+                    <img src="assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+                </a>
+            </div>
+    
+            <!-- Section Réseaux et App -->
+            <div class="grid-item">
+                <div class="footer-app-review">
+                    <!-- Bloc App -->
+                    <div class="footer-app">
+                        <a href="#">
+                            <img src="assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                            <p>Télécharger l'app</p>
+                        </a>
+                    </div>
+
+                    <!-- Bloc Avis -->
+                    <div class="footer-review">
+                        <a href="avis.html">
+                            <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
+                            <p class="review-text">Laisser un avis</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="droit_auteur">
+            <p>&copy; 2025 SwagSwipe</p>
+        </div>
+    </footer>
+</body>
+</html>
