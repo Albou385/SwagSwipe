@@ -15,7 +15,67 @@ desktop.ini              # Windows
 
 # === Fichiers temporaires et caches ===
 *.log
+*.tmp#################################
+# Systèmes d'exploitation
+#################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+#################################
+# Fichiers temporaires et backups
+#################################
+*~
+*.swp
+*.swo
 *.tmp
+*.bak
+
+#################################
+# IDE et éditeurs
+#################################
+.vscode/
+.idea/
+*.code-workspace
+
+#################################
+# Journaux et fichiers de débogage
+#################################
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#################################
+# Node.js (si utilisé)
+#################################
+node_modules/
+
+#################################
+# PHP : dépendances et gestionnaires de paquets
+#################################
+vendor/
+# Note : Conserve composer.lock pour les applications afin de garantir les versions, 
+# mais ignore-le pour les bibliothèques si nécessaire.
+composer.lock
+
+#################################
+# Environnements et configurations sensibles
+#################################
+.env
+.env.*
+
+#################################
+# Autres fichiers spécifiques (à personnaliser)
+#################################
+# Par exemple, si tu génères des fichiers de build ou des caches spécifiques
+# ajoute tes règles ci-dessous.
+
 *.temp
 *.bak
 *.swp
