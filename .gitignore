@@ -1,0 +1,110 @@
+# === Node, npm, yarn (si utilisés) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === VSCODE ===
+.vscode/
+.history/
+
+# === Environnement système ===
+.DS_Store                # macOS
+Thumbs.db                # Windows
+desktop.ini              # Windows
+
+# === Fichiers temporaires et caches ===
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.swn
+*.orig
+
+# === Cache PHP / Laravel / Symfony / Autres ===
+vendor/
+composer.lock
+.env
+.env.*
+*.env
+
+# === Cache de certains outils ===
+.cache/
+.idea/
+*.iml
+
+# === Bower / Webpack / Gulp / Vite (si utilisés) ===
+bower_components/
+dist/
+build/
+
+# === Output ou fichiers générés ===
+*.min.js
+*.min.css
+*.map
+
+# === Fichiers SQL de sauvegarde ===
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+
+# === Systèmes de fichiers ===
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# === Images de dev / mock / temp ===
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+
+# === Exclure les clés, tokens ou config sensibles ===
+secret.*
+config.php                # si tu utilises une version spécifique pour déploiement
+
+# === Exclure fichiers OS / IDE / backup ===
+ehthumbs.db
+Icon?
+*.bak
+*.old
+*.backup
+*.~*
+
+# === Exclure fichiers uploadés en local ===
+uploads/
+media/
+storage/
+
+# === Ignorer tout contenu privé ===
+private/
+secrets/
+confidential/
+
+# === Cache de sessions PHP ===
+sessions/
+*.session
+
+# === PHPUnit / tests ===
+.phpunit.result.cache
+test-results/
+coverage/
+
+# === Ignorer les fichiers personnels ===
+*.local
+*.log
+
+# === Git fichiers de conflits ===
+*.orig
+
+# === Public auto-généré ===
+public/vendor/
+public/storage/
