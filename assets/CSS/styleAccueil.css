@@ -1,0 +1,327 @@
+/*en tête -------------------------------------------------------------------------------------------------------------------------------------------------*/
+.header-style {
+    font-family:'Syne', sans-serif;
+    padding: 120px;
+    background-color: EFEFEF;
+    color: black;
+    text-align: center;
+    position: relative;
+    font-size: 24px;
+}
+
+.header-style h1,
+.header-style p,
+.slogan {
+    color: black;
+    text-shadow: 2px 2px 5px rgba(255,255,255,1); /* flou profond pour lisibilité */
+    font-weight: 700;
+}
+
+.logo {
+    width: 250px;  
+    height: auto; 
+    position: absolute;
+    top: 0px;   
+    left: 0px;  
+}
+
+.top-right-buttons {
+    position: absolute;
+    top: 15px;
+    right:5px;
+}
+
+.button-style {
+    background-color:black;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav-style {
+    margin-top: 10px;
+}
+
+.nav-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+}
+
+.nav-button:hover, .button-style:hover,.search-button:hover {
+    background-color: rgb(120, 122, 124);
+    color: #fff;
+}
+
+.slogan {
+    display: block;
+    unicode-bidi: isolate;
+    padding: 0%;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 550; 
+}
+
+/* SwagSwipe lien interactif */
+.site-title a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 1); /* même style que l'en-tête */
+}
+
+.site-title a:hover {
+    color: #1BC3AD; /* ou toute couleur vive : rouge, bleu, etc. */
+    cursor: pointer;
+}
+
+/* Icône de main au survol */
+.site-title a:hover {
+    cursor: pointer;
+}
+
+/* Ajoute aussi si tu veux que la police change légèrement pour l'effet */
+.site-title a:hover {
+    font-weight: 800;
+}
+
+/*pied de page-------------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Pied de page amélioré */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px; /* Réduit l’espace */
+    padding: 15px; /* Réduction de padding */
+    max-width: 1200px;
+    margin: auto;
+}
+
+.grid-item {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px; /* Réduit */
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+}
+
+/* Logo dans le footer */
+.footer-logo {
+    width: 150px;
+    height: auto;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-logo:hover {
+    transform: scale(1.1);
+}
+
+/* Logo central plus gros */
+.large-logo {
+    width: 200px;
+}
+
+/* Image d'application mobile */
+.application-icon {
+    width: 40px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+/* Texte sous l’avis */
+.review-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    margin-top: 5px;
+    color: white;
+}
+
+.footer-app-review {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.footer-app, .footer-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-app p {
+    margin-top: 5px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.Application {
+    width: 100px;
+    height: auto;
+}
+
+.droit_auteur {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-icon{
+    width: 30px; 
+    height: auto; 
+}
+/*-------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+.body-style {
+    background: url('https://images.pexels.com/photos/1884584/pexels-photo-1884584.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;  
+}
+
+
+.search-button{
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.content {
+    margin-top: 100px; 
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.60); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px; 
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+    color: #1a1a1a
+}
+
+.titre{
+    font-size: 36px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50; 
+}
+
+.content p {
+    margin-bottom: 20px;
+}
+
+.content p strong {
+    color: #2ecc71;
+}
+
+.content p em {
+    color: #2980b9;
+}
+
+.image1{
+    max-width: 20%;
+    height: auto;
+    display: block;
+    margin: 30px auto;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    animation: floating 3s ease-in-out infinite;
+}
+
+.image1:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
+    
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+
+.highlight {
+    background-color: #f1c40f;
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+}
+
+.profil{
+    margin-top: 100px; 
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px; 
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.pdp{
+    width: 200px; 
+    height: auto; 
+}
+
+.produit_favoris{
+    margin-top: 100px; 
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px; 
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.produit_chargement{
+    margin-top: 100px; 
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px; 
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
