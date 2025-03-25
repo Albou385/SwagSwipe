@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let swipedProducts = new Set();  // Stocke les ID des produits déjà swipés
 
     // Charger les produits depuis le fichier JSON
-    fetch("./sql/products.json")
+    fetch("../sql/products.json")
         .then(response => response.json())
         .then(data => {
             products = data;
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productDescription.textContent = product.description;
         productTaille.textContent      = `Taille : ${product.taille}`;
         productCondition.textContent   = `Condition : ${product.condition}`;
+        productMarque.textContent = `Marque : ${product.marque}`;
         productVille.textContent = `Ville : ${product.ville}`;
 
 
@@ -79,12 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
         productCard.classList.add(swipeClass);
         productCard.style.transition = "transform 0.5s ease-out";
-        productCard.style.transform = isAccepted ? "translateX(100vw)" : "translateX(-100vw)";
     
         setTimeout(() => {
             productCard.classList.remove(swipeClass);
             productCard.style.transition = "none";
-            productCard.style.transform = "translateX(0)";
             showRandomProduct();
             isSwiping = false;
         }, 800);

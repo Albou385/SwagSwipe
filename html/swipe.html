@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SwagSwipe - Swipe</title>
-    <link rel="stylesheet" href="./assets/css/styleSwipe.css">
-    <script defer src="./assets/js/swipe.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- Chemins corrigés -->
+    <link rel="stylesheet" href="../assets/css/styleSwipe.css" />
+    <script defer src="../assets/js/swipe.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
 </head>
+
 <body>
 
     <!-- En-tête -->
     <header class="header-style">
-        <img src="/assets/img/logo.png" alt="logo" class="logo">
+        <img src="../assets/img/logo.png" alt="logo" class="logo">
         <div class="top-right-buttons">
             <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
             <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
         </div>
         <h1 class="site-title">
             <a href="swipe.html">SwagSwipe</a>
-        </h1>    
-        <p class ="slogan">Le style à petit prix</p>
+        </h1>
+        <p class="slogan">Le style à petit prix</p>
         <div class="nav-style">
             <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
             <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
@@ -34,24 +37,15 @@
     <!-- Conteneur principal du Swipe -->
     <section id="swipe-container">
         <div id="product-card" class="product-card">
-            <img id="product-image" src="" alt="Produit">
-            <!-- Correspond à "nom" dans le JSON -->
+            <img id="product-image" src="" alt="Produit" />
             <h2 id="product-nom"></h2>
-            <!-- Correspond à "prix" -->
             <p id="product-prix"></p>
-            <!-- Correspond à "categorie" -->
             <p id="product-categorie"></p>
-            <!-- Correspond à "description" -->
             <p id="product-description"></p>
-            <!-- Correspond à "taille" -->
             <p id="product-taille"></p>
-            <!-- Correspond à "condition" -->
             <p id="product-condition"></p>
-            <!-- Correspond à "marque" -->
             <p id="product-marque"></p>
-            <!-- Correspond à "ville" -->
             <p id="product-ville"></p>
-            <!-- Correspond à "pays" -->
             <p id="product-pays"></p>
         </div>
         <div class="swipe-actions">
@@ -60,39 +54,34 @@
         </div>
     </section>
 
-    <!-- Effets visuels (coeur et croix) -->
+    <!-- Effets visuels -->
     <div id="swipe-feedback" class="swipe-feedback"></div>
 
     <!-- Pied de page -->
     <footer>
         <div class="grid-container">
-            <!-- Section Contact -->
             <div class="grid-item">
                 <h2>Contact</h2>
                 <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
                 <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
                 <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
             </div>
-    
-            <!-- Section Logo -->
+
             <div class="grid-item">
                 <a href="#top">
-                    <img src="assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+                    <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
                 </a>
             </div>
-    
-            <!-- Section Réseaux et App -->
+
             <div class="grid-item">
                 <div class="footer-app-review">
-                    <!-- Bloc App -->
                     <div class="footer-app">
                         <a href="#">
-                            <img src="assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                            <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
                             <p>Télécharger l'app</p>
                         </a>
                     </div>
 
-                    <!-- Bloc Avis -->
                     <div class="footer-review">
                         <a href="avis.html">
                             <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
@@ -102,6 +91,7 @@
                 </div>
             </div>
         </div>
+
         <div class="droit_auteur">
             <p>&copy; 2025 SwagSwipe</p>
         </div>

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadProducts() {
         try {
-            const response = await fetch("./sql/products.json");
+            const response = await fetch("../sql/products.json");
             products = await response.json();
             console.log("Produits chargés :", products.length, "produits");
 
