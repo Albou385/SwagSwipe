@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const favoritesGrid = document.getElementById("favoritesGrid");
 
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const productCard = document.createElement("div");
             productCard.classList.add("favorite-card");
 
-            // Création de la liste des caractéristiques
             const featuresList = product.features ? 
                 `<ul class="product-features">
                     ${product.features.map(feature => `<li>✔️ ${feature}</li>`).join("")}
