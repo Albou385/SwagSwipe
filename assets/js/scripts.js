@@ -5,18 +5,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const sortOptions = document.getElementById("sortOptions");
     const loadingIndicator = document.getElementById("loading");
 
-    let products = [];
+    let allProducts = [];
     let displayedProducts = 0;
     const productsPerLoad = 6;
-    let displayedProductIds = new Set(); // ✅ Stocke les ID des produits déjà affichés pour éviter les doublons
+    let displayedProductKeys = new Set(); // ✅ Unicité par contenu
+    let endMessageDisplayed = false;
+
+    function generateProductKey(product) {
+        return `${product.nom}-${product.description}-${product.taille}-${product.condition}-${product.ville}-${product.pays}`;
+    }
 
     async function loadProducts() {
         try {
             const response = await fetch("../sql/products.json");
-            products = await response.json();
-            console.log("Produits chargés :", products.length, "produits");
+            const data = await response.json();
 
-            // ✅ Réinitialisation des données uniquement lors d'un filtrage ou d'une recherche
+            // ✅ Éliminer les doublons par "caractéristiques visibles"
+            const productMap = new Map();
+            data.forEach(product => {
+                const key = generateProductKey(product);
+                if (!productMap.has(key)) {
+                    productMap.set(key, product);
+                }
+            });
+
+            allProducts = Array.from(productMap.values());
             resetDisplayedProducts();
         } catch (error) {
             console.error("Erreur de chargement des produits :", error);
@@ -25,24 +38,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function resetDisplayedProducts() {
         displayedProducts = 0;
-        displayedProductIds.clear(); // ✅ Réinitialisation des ID affichés uniquement au changement de filtre
+        displayedProductKeys.clear();
+        endMessageDisplayed = false;
         productGrid.innerHTML = "";
-        displayMoreProducts(); // 🔥 Recharge correctement les produits
+        displayMoreProducts();
     }
 
     function displayMoreProducts() {
         let filteredProducts = filterAndSortProducts();
 
-        console.log(`Produits déjà affichés : ${displayedProducts}`);
-        console.log(`Produits restants : ${filteredProducts.length - displayedProducts}`);
-
-        let nextBatch = filteredProducts
-            .filter(p => !displayedProductIds.has(p.id)) // ✅ Filtrer les produits déjà affichés
+        const nextBatch = filteredProducts
+            .filter(p => !displayedProductKeys.has(generateProductKey(p)))
             .slice(0, productsPerLoad);
 
         if (nextBatch.length === 0) {
-            console.log("Tous les produits ont été chargés.");
             loadingIndicator.style.display = "none";
+
+            if (!endMessageDisplayed) {
+                const endMessage = document.createElement("p");
+                endMessage.textContent = "🎉 Tous les produits ont été affichés !";
+                endMessage.style.textAlign = "center";
+                endMessage.style.marginTop = "20px";
+                endMessage.style.color = "black";
+                endMessage.style.fontWeight = "bold";
+                endMessage.id = "message-fin";
+                productGrid.appendChild(endMessage);
+                endMessageDisplayed = true;
+            }
+
             return;
         }
 
@@ -63,44 +86,35 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
 
             productGrid.appendChild(productCard);
-            displayedProductIds.add(product.id); // ✅ Ajouter l'ID du produit aux produits affichés
+            displayedProductKeys.add(generateProductKey(product));
         });
 
-        displayedProducts += nextBatch.length; // ✅ Mise à jour correcte du compteur
+        displayedProducts += nextBatch.length;
+        loadingIndicator.style.display = "block";
 
-        if (displayedProducts >= filteredProducts.length) {
-            console.log("Tous les produits affichés !");
-            loadingIndicator.style.display = "none";
-        } else {
-            loadingIndicator.style.display = "block";
-        }
-
-        // ✅ Ajouter les événements sur les nouveaux boutons "Ajouter aux Favoris"
+        // Ajouter les événements "Favoris"
         document.querySelectorAll(".btn-favori").forEach(button => {
             button.addEventListener("click", event => {
                 const productId = parseInt(event.target.dataset.id, 10);
-                const product = products.find(p => p.id === productId);
+                const product = allProducts.find(p => p.id === productId);
                 saveToFavorites(product);
             });
         });
     }
 
     function filterAndSortProducts() {
-        let filtered = [...products]; // ✅ Créer une copie de `products` pour éviter les modifications involontaires
+        let filtered = [...allProducts];
 
-        // 🔥 Appliquer le filtre de catégorie
         const selectedCategory = filterCategory.value;
         if (selectedCategory) {
-            filtered = filtered.filter(product => product.categorie === selectedCategory);
+            filtered = filtered.filter(p => p.categorie === selectedCategory);
         }
 
-        // 🔥 Appliquer le filtre de recherche
         const searchText = searchBar.value.toLowerCase().trim();
         if (searchText) {
-            filtered = filtered.filter(product => product.nom.toLowerCase().includes(searchText));
+            filtered = filtered.filter(p => p.nom.toLowerCase().includes(searchText));
         }
 
-        // 🔥 Appliquer le tri
         const sortValue = sortOptions.value;
         if (sortValue === "prix-asc") {
             filtered.sort((a, b) => a.prix - b.prix);
@@ -117,19 +131,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function saveToFavorites(product) {
         let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    
+        // Évite les doublons
         if (!favorites.some(fav => fav.id === product.id)) {
             favorites.push(product);
             localStorage.setItem("favorites", JSON.stringify(favorites));
             alert("Produit ajouté aux favoris !");
         }
     }
+    
 
-    // ✅ Ajouter les événements pour filtrer dynamiquement
     searchBar.addEventListener("input", resetDisplayedProducts);
     filterCategory.addEventListener("change", resetDisplayedProducts);
     sortOptions.addEventListener("change", resetDisplayedProducts);
 
-    // ✅ Scroll Infini
     window.addEventListener("scroll", () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
             displayMoreProducts();

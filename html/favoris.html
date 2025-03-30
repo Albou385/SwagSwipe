@@ -39,6 +39,7 @@
       <button id="clearFavorites" class="btn-clear">🗑️ Vider les Favoris</button>
     </section>
   </header>
+  
 
   <!-- Grille d'affichage -->
   <div class="produit_favoris">
@@ -46,6 +47,23 @@
       <!-- Les favoris seront injectés ici par JS -->
     </section>
   </div>
+    <!-- Fenêtre modale pour message -->
+  <div id="modal-message" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h3>Contacter le vendeur</h3>
+      <textarea id="message-text" rows="6" style="width:100%; padding:10px;"></textarea>
+      <div id="message-history" style="margin-top:20px;">
+        <h4>Historique de discussion</h4>
+        <ul id="history-list" style="font-size: 0.9rem; list-style-type: disc; padding-left: 20px;"></ul>
+      </div>      
+      <br />
+      <a id="send-whatsapp" class="nav-button" target="_blank">📤 WhatsApp</a>
+      <a id="send-sms" class="nav-button" target="_blank">📱 SMS</a>
+
+    </div>
+  </div>
+
 
   <!-- Pied de page -->
   <footer>

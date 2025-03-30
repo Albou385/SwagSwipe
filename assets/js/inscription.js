@@ -1,5 +1,7 @@
+let generatedEmailCode = null;
+let generatedSMSCode = null;
+let verificationPhase = false;
 
-// Validation des champs de création de compte
 function validateForm() {
     const prenom = document.getElementById("prenom").value.trim();
     const nom = document.getElementById("nom").value.trim();
@@ -13,71 +15,54 @@ function validateForm() {
     const confirmation = document.getElementById("confirmation_mdp").value;
     const image = document.getElementById("image_profil").files[0];
 
-    let isValid = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
     const codePostalRegex = /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
 
-    if (prenom.length < 2 || prenom.length > 30) {
-        alert("Le prénom doit contenir entre 2 et 30 caractères.");
-        isValid = false;
-    }
+    if (prenom.length < 2 || prenom.length > 30) return alert("Le prénom doit contenir entre 2 et 30 caractères."), false;
+    if (nom.length < 2 || nom.length > 30) return alert("Le nom doit contenir entre 2 et 30 caractères."), false;
+    if (!emailRegex.test(email)) return alert("Adresse courriel invalide."), false;
+    if (!phoneRegex.test(telephone)) return alert("Numéro de téléphone invalide (10 chiffres requis)."), false;
+    if (!numero || !rue || !ville || !codePostalRegex.test(codePostal)) return alert("Veuillez remplir correctement tous les champs d'adresse."), false;
+    if (!passwordRegex.test(motDePasse)) return alert("Mot de passe trop faible."), false;
+    if (motDePasse !== confirmation) return alert("Les mots de passe ne correspondent pas."), false;
+    if (image && image.type !== "image/png") return alert("L'image de profil doit être un fichier PNG."), false;
 
-    if (nom.length < 2 || nom.length > 30) {
-        alert("Le nom doit contenir entre 2 et 30 caractères.");
-        isValid = false;
-    }
-
-    if (!emailRegex.test(email)) {
-        alert("Adresse courriel invalide.");
-        isValid = false;
-    }
-
-    if (!phoneRegex.test(telephone)) {
-        alert("Numéro de téléphone invalide (10 chiffres requis).");
-        isValid = false;
-    }
-
-    if (!numero || !rue || !ville || !codePostalRegex.test(codePostal)) {
-        alert("Veuillez remplir correctement tous les champs d'adresse.");
-        isValid = false;
-    }
-
-    if (!passwordRegex.test(motDePasse)) {
-        alert("Mot de passe trop faible. Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
-        isValid = false;
-    }
-
-    if (motDePasse !== confirmation) {
-        alert("Les mots de passe ne correspondent pas.");
-        isValid = false;
-    }
-
-    if (!image || image.type !== "image/png") {
-        alert("Veuillez fournir une image de profil au format PNG.");
-        isValid = false;
-    }
-
-    return isValid;
+    return true;
 }
 
-// Ajout du bouton "S'inscrire" dynamiquement
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form");
-    const inscriptionBtn = document.createElement("button");
-    inscriptionBtn.type = "submit";
-    inscriptionBtn.textContent = "S'inscrire";
-    inscriptionBtn.classList.add("button");
-    form.appendChild(inscriptionBtn);
+    const form = document.getElementById("formulaire-inscription");
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        if (validateForm()) {
-            alert("Inscription réussie !");
+        // PHASE 1 — Validation et envoi des codes
+        if (!verificationPhase) {
+            if (validateForm()) {
+                generatedEmailCode = Math.floor(100000 + Math.random() * 900000).toString();
+                generatedSMSCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+                alert(`(Simulé) Code envoyé à votre courriel : ${generatedEmailCode}`);
+                alert(`(Simulé) Code envoyé par SMS : ${generatedSMSCode}`);
+
+                document.getElementById("verification-section").style.display = "block";
+                verificationPhase = true;
+            }
         } else {
-            alert("Veuillez corriger les erreurs avant de vous inscrire.");
+            // PHASE 2 — Vérification des codes
+            const userEmailCode = document.getElementById("code-email").value.trim();
+            const userSMSCode = document.getElementById("code-sms").value.trim();
+
+            if (userEmailCode === generatedEmailCode && userSMSCode === generatedSMSCode) {
+                alert("Inscription réussie ! ✅ Vérification complétée.");
+                form.reset();
+                document.getElementById("verification-section").style.display = "none";
+                verificationPhase = false;
+            } else {
+                alert("Les codes sont incorrects. Veuillez réessayer.");
+            }
         }
     });
 });

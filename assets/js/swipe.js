@@ -67,6 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const productId = parseInt(productImage.dataset.id, 10);
         const product = products.find(p => p.id === productId);
     
+        if (!product) {
+            console.error("Produit introuvable pour l'ID :", productId);
+            isSwiping = false;
+            return;
+        }
+    
         if (isAccepted) {
             saveToFavorites(product);
         }
@@ -84,22 +90,37 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             productCard.classList.remove(swipeClass);
             productCard.style.transition = "none";
+            productCard.style.transform = "none";
             showRandomProduct();
             isSwiping = false;
+            console.log("Swipe terminé");
         }, 800);
-    }    
+    }
+      
     
 
     // Sauvegarde en favoris
     function saveToFavorites(product) {
+        if (!product || !product.id) {
+            console.error("Produit invalide :", product);
+            return;
+        }
+    
         let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-        // Vérifier si le produit n'est pas déjà en favoris
+    
+        // 🔒 Nettoyer les valeurs nulles ou invalides
+        favorites = favorites.filter(fav => fav && typeof fav === 'object' && 'id' in fav);
+    
+        // ✅ Ajouter si pas déjà présent
         if (!favorites.some(fav => fav.id === product.id)) {
             favorites.push(product);
             localStorage.setItem("favorites", JSON.stringify(favorites));
+            console.log("Produit ajouté aux favoris :", product);
+        } else {
+            console.log("Produit déjà en favoris :", product);
         }
     }
+    
 
     // Réinitialiser les produits swipés
     function resetSwipes() {
@@ -110,14 +131,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ajout des événements sur les boutons
     rejectBtn.addEventListener("click", () => handleSwipe(false));
     acceptBtn.addEventListener("click", () => handleSwipe(true));
-    resetBtn.addEventListener("click", resetSwipes); // Bouton de réinitialisation
+    //resetBtn.addEventListener("click", resetSwipes); // Bouton de réinitialisation
 
     // Gestion des touches du clavier
-    document.addEventListener("keydown", (event) => {
+    window.addEventListener("keydown", (event) => {
+        // Ne réagit pas si une zone de texte est active
+        if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+    
         if (event.key === "ArrowLeft") {
+            event.preventDefault();
             handleSwipe(false);
         } else if (event.key === "ArrowRight") {
+            event.preventDefault();
             handleSwipe(true);
         }
     });
+    
 });

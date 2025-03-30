@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Script de validation -->
-  <script defer src="./assets/js/inscription.js"></script>
+  <script defer src="../assets/js/inscription.js"></script>
 
   <style>
     .container {
@@ -95,7 +95,16 @@
   <div class="container">
     <h1>Créer un Compte</h1>
 
-    <form onsubmit="return validerInscription(event)" enctype="multipart/form-data">
+    <div id="verification-section" style="display:none; margin-top: 20px;">
+      <h2>Vérification</h2>
+      <label for="code-email">Code reçu par courriel :</label>
+      <input type="text" id="code-email" placeholder="Entrez le code reçu par courriel" required />
+      <label for="code-sms">Code reçu par SMS :</label>
+      <input type="text" id="code-sms" placeholder="Entrez le code reçu par SMS" required />
+    </div>
+    
+
+    <form id="formulaire-inscription" enctype="multipart/form-data">
       <div id="message-erreur"></div>
 
       <!-- Section Contact -->
@@ -123,7 +132,7 @@
 
       <!-- Adresse -->
       <div class="form-section">
-        <h2>Adresse de Livraison</h2>
+        <h2>Adresse</h2>
         <div class="grid-container">
           <div class="form-item">
             <label for="numero_civil">Numéro Civil</label>
@@ -146,7 +155,7 @@
 
       <!-- Mot de passe -->
       <div class="form-section">
-        <h2>Informations de Connexion</h2>
+        <h2>Informations d'inscription</h2>
         <div class="form-item">
           <label for="mot_de_passe">Mot de Passe</label>
           <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Choisissez un mot de passe" required />
@@ -162,9 +171,11 @@
         <h2>Image de Profil</h2>
         <div class="form-item">
           <label for="image_profil">Télécharger une image (PNG uniquement)</label>
-          <input type="file" id="image_profil" name="image_profil" accept="image/png" required />
+          <input type="file" id="image_profil" name="image_profil" accept="image/png" />
         </div>
       </div>
+
+      
 
       <!-- Bouton -->
       <div class="form-section">
