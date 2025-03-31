@@ -3,10 +3,8 @@
 <?php
 
 //Connexion a la base de donnee
-
-
 $host = "localhost"; // Adresse du serveur (127.0.0.1 en local)
-$dbname = "onlineshop"; // Nom de la base de données
+$dbname = "swagswipe"; // Nom de la base de données
 $username = "root"; // Nom d'utilisateur MySQL
 $password = ""; // Mot de passe MySQL
 
@@ -22,6 +20,7 @@ try {
     }
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
+    echo "Test";
 }
 
 
