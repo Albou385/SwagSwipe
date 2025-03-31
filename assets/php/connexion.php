@@ -13,11 +13,6 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connexion réussie !<br>";
 
-    // Exemple : Lire des données
-    $query = $pdo->query("SELECT * FROM products");
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        echo "ID : " . $row['id'] . " - Nom : " . $row['nom'] . "<br>";
-    }
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
     echo "Test";
