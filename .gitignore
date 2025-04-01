@@ -106,7 +106,6 @@ build/
 *.map
 
 # === Fichiers SQL de sauvegarde ===
-*.sql
 *.sqlite
 *.sqlite3
 *.db
