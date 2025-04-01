@@ -2,9 +2,9 @@
 
 // Connexion à la base de données
 $serveur = "localhost";
-$utilisateur = "root";  // Change si nécessaire
-$motDePasse = "";       // Change si nécessaire
-$baseDeDonnees = "SwagSwipe"; // Remplace par le vrai nom de ta base
+$utilisateur = "root"; 
+$motDePasse = "";       
+$baseDeDonnees = "SwagSwipe"; 
 
 try {
     $pdo = new PDO("mysql:host=$serveur;dbname=$baseDeDonnees;charset=utf8", $utilisateur, $motDePasse);

@@ -2,7 +2,7 @@
 
 <?php
 // Configuration de la base de données
-$host = 'localhost'; // Nom d'hôte de la base de données (par exemple, 'localhost')
+$host = 'localhost'; // Nom d'hôte de la base de données 
 $dbname = 'SwagSwipe'; // Nom de la base de données
 $username = 'root'; // Nom d'utilisateur de la base de données
 $password = ''; // Mot de passe de la base de données
