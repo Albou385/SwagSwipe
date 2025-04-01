@@ -32,6 +32,7 @@ function validateForm() {
     return true;
 }
 
+/*
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("formulaire-inscription");
 
@@ -66,3 +67,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+*/

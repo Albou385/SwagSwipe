@@ -95,6 +95,7 @@
   <div class="container">
     <h1>Créer un Compte</h1>
 
+    <!--
     <div id="verification-section" style="display:none; margin-top: 20px;">
       <h2>Vérification</h2>
       <label for="code-email">Code reçu par courriel :</label>
@@ -102,9 +103,9 @@
       <label for="code-sms">Code reçu par SMS :</label>
       <input type="text" id="code-sms" placeholder="Entrez le code reçu par SMS" required />
     </div>
+  -->
 
-
-    <form method= "post" id="formulaire-inscription" enctype="multipart/form-data">
+    <form method= "post" id="formulaire-inscription" enctype="multipart/form-data" action="../assets/php/SeInscrire.php">
       <div id="message-erreur"></div>
 
       <!-- Section Contact -->

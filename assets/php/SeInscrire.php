@@ -1,33 +1,58 @@
 <?php
-// Inclusion du fichier de connexion
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["prenom"])) {
-    // Connexion à la base de données
-    try {
-        $pdo = new PDO("mysql:host=localhost;dbname=swagswipe", "root", "", [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
 
-        // Préparation de la requête
-        $sql = "INSERT INTO utilisateur (nom, prenom, adresse_courriel, telephone, mdp, ville, pays, code_postal) 
-                VALUES (:nom, :prenom, :email, :telephone, :mdp, :ville, :pays, :code_postal)";
-        $stmt = $pdo->prepare($sql);
+// Connexion à la base de données
+$serveur = "localhost";
+$utilisateur = "root";  // Change si nécessaire
+$motDePasse = "";       // Change si nécessaire
+$baseDeDonnees = "SwagSwipe"; // Remplace par le vrai nom de ta base
 
-        // Exécution avec les valeurs du formulaire
-        $stmt->execute([
-            'nom' => $_POST['nom'],
-            'prenom' => $_POST['prenom'],
-            'email' => $_POST['adresse_courriel'],
-            'telephone' => $_POST['telephone'],
-            'mdp' => $_POST['mdp'], // Toujours stocker un mot de passe haché
-            'ville' => $_POST['ville'],
-            'pays' => $_POST['pays'],
-            'code_postal' => $_POST['code_postal'],
-        ]);
+try {
+    $pdo = new PDO("mysql:host=$serveur;dbname=$baseDeDonnees;charset=utf8", $utilisateur, $motDePasse);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
 
-        echo "Utilisateur ajouté avec succès !";
-    } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
+// Vérifier si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $prenom = $_POST["prenom"];
+    $nom = $_POST["nom"];
+    $email = $_POST["email"];
+    $telephone = $_POST["telephone"];
+    $numero_civil = $_POST["numero_civil"];
+    $rue = $_POST["rue"];
+    $ville = $_POST["ville"];
+    $code_postal = $_POST["code_postal"];
+    $mot_de_passe = $_POST["mot_de_passe"];
+    $confirmation_mdp = $_POST["confirmation_mdp"];
+
+    // Vérifier si les mots de passe correspondent
+    if ($mot_de_passe !== $confirmation_mdp) {
+        die("Les mots de passe ne correspondent pas !");
     }
+    
+    // Vérifier si l'email existe déjà
+    $verif = $pdo->prepare("SELECT * FROM utilisateur WHERE adresse_courriel = ?");
+    $verif->execute([$email]);
+
+    if ($verif->rowCount() > 0) {
+        die("Cet email est déjà utilisé !");
+    }
+    echo $mot_de_passe;
+
+    // Insérer l'utilisateur dans la base de données
+    $requete = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, adresse_courriel, telephone, mdp, ville, pays, code_postal, role) 
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $requete->execute([$nom, $prenom, $email, $telephone, $motDePasse, $ville, 'Canada', $code_postal, 'usager' ]);
+
+    echo "<script>
+        alert('Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');
+        window.location.href = '../../html/connexion.html';
+        </script>";
+
+    //header("Location: ../../html/connexion.html");
+    //exit();
+
 }
 ?>
 
