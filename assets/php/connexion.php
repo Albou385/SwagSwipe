@@ -1,23 +1,34 @@
-
-
 <?php
-// Configuration de la base de données
-$host = 'localhost'; // Nom d'hôte de la base de données 
-$dbname = 'SwagSwipe'; // Nom de la base de données
-$username = 'root'; // Nom d'utilisateur de la base de données
-$password = ''; // Mot de passe de la base de données
+$host = 'swagswipeserveur.mysql.database.azure.com';
+$dbname = 'SwagSwipe';
+$username = 'adminSwag';
+$password = 'SwaggySwipe123';
+$sslCertPath = __DIR__ . '/../BaltimoreCyberTrustRoot.crt.pem';
 
-// Tentative de connexion
+$options = [
+    PDO::MYSQL_ATTR_SSL_CA => $sslCertPath,
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+];
+
+if (!file_exists($sslCertPath)) {
+    die("❌ Le certificat SSL n'a pas été trouvé à : $sslCertPath");
+}
+
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // Configuration pour afficher les erreurs en mode développement
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie à la base de données !<br> Httdocs";
-
-
+    $pdo = new PDO(
+        "mysql:host=$host;port=3306;dbname=$dbname;charset=utf8",
+        $username,
+        $password,
+        [
+            PDO::MYSQL_ATTR_SSL_CA => $sslCertPath,
+            PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false, // ← ajoute ça
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
+    );
+    
+    echo "✅ Connexion réussie à la base de données Azure !";
 } catch (PDOException $e) {
-    echo "Erreur de connexion à la base de données : " . $e->getMessage();
-    echo "Test";
+    echo "❌ Erreur de connexion : " . $e->getMessage();
     exit();
 }
 ?>
