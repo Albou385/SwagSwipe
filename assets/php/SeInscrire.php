@@ -1,17 +1,6 @@
 <?php
 
-// Connexion à la base de données
-$serveur = "localhost";
-$utilisateur = "root"; 
-$motDePasse = "";       
-$baseDeDonnees = "SwagSwipe"; 
-
-try {
-    $pdo = new PDO("mysql:host=$serveur;dbname=$baseDeDonnees;charset=utf8", $utilisateur, $motDePasse);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
+require_once 'connexion.php'; // Ajuste le chemin si nécessaire
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
