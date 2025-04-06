@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($mot_de_passe !== $confirmation_mdp) {
         die("Les mots de passe ne correspondent pas !");
     }
-    
+
     // Vérifier si l'email existe déjà
     $verif = $pdo->prepare("SELECT * FROM utilisateur WHERE adresse_courriel = ?");
     $verif->execute([$email]);
