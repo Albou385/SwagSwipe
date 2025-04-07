@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="../assets/css/styleAccueil.css" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/session_utilisateur.js" defer></script>
+
 
   <!-- Script de validation -->
   <script defer src="../assets/js/inscription.js"></script>
@@ -76,10 +78,8 @@
 <body class="body-style">
   <header class="header-style">
     <img src="../assets/img/logo.png" alt="logo" class="logo" />
-    <div class="top-right-buttons">
-      <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
-      <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
-    </div>
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
     <h1 class="site-title">
       <a href="swipe.html">SwagSwipe</a>
     </h1>

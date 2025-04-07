@@ -26,7 +26,7 @@ try {
         ]
     );
     
-    echo "✅ Connexion réussie à la base de données Azure !";
+    //echo "✅ Connexion réussie à la base de données Azure !";
 } catch (PDOException $e) {
     echo "❌ Erreur de connexion : " . $e->getMessage();
     exit();

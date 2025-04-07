@@ -7,6 +7,8 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/styleConnexion.css" />
+  <script src="../assets/js/session_utilisateur.js" defer></script>
+
 
   <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
@@ -145,10 +147,8 @@
   <!-- En-tête -->
   <header class="header-style">
     <img src="../assets/img/logo.png" alt="logo" class="logo" />
-    <div class="top-right-buttons">
-      <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
-      <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
-    </div>
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
     <h1 class="site-title">
       <a href="swipe.html">SwagSwipe</a>
     </h1>
@@ -164,7 +164,7 @@
   <!-- Formulaire de Connexion -->
   <div class="container">
     <h1>Connexion à votre compte</h1>
-    <form id="form-connexion" method="POST" action="../php/se_connecter.php">
+    <form id="form-connexion" method="POST" action="../assets/php/SeConnecter.php">
       <div id="message-erreur"></div>
       <div class="form-section">
         <div class="form-item">
