@@ -1,4 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Vérification si l'utilisateur est connecté
+    function estConnecte() {
+        return localStorage.getItem("utilisateurConnecte") !== null;
+    }
+
+    if (!estConnecte()) {
+        alert("Vous devez être connecté pour consulter vos favoris.");
+        window.location.href = "connexion.html";
+        return; // Stopper l'exécution ici
+    }
+
+    // Le reste du code ne s'exécutera que si connecté
     const favoritesGrid = document.getElementById("favoritesGrid");
     const modal = document.getElementById("modal-message");
     const closeModalBtn = document.getElementById("close-modal");

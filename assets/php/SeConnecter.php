@@ -1,48 +1,60 @@
-
-
 <?php
-session_start(); // Démarrer la session
+require_once 'connexion.php';
 
-// Connexion à la base de données
-$host = "localhost";
-$dbname = "SwagSwipe"; 
-$username = "root";  // Change avec ton utilisateur MySQL
-$password = "";      // Change si besoin
+// Définir le header JSON
+header('Content-Type: application/json');
+
+// Vérifier si les champs nécessaires sont présents
+if (!isset($_POST['email']) || !isset($_POST['mot_de_passe'])) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Champs requis manquants.'
+    ]);
+    exit;
+}
+
+$email = trim($_POST['email']);
+$motDePasse = $_POST['mot_de_passe'];
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Préparer la requête SQL
+    $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE adresse_courriel = ?");
+    $stmt->execute([$email]);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $_POST["email"];
-        $mdp = $_POST["mot_de_passe"];
+    $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Vérifier si l'utilisateur existe
-        $stmt = $pdo->prepare("SELECT * FROM utilisateur WHERE email = :email");
-        $stmt->execute([":email" => $email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        //&& password_verify($mdp, $user["mdp"])
-        if ($user && password_verify($mdp, $user["mdp"])) {
-            // Connexion réussie -> Stocker les infos dans $_SESSION
-            $_SESSION["id_user"] = $user["id_user"];
-            $_SESSION["nom"] = $user["nom"];
-            $_SESSION["prenom"] = $user["prenom"];
-            $_SESSION["email"] = $user["email"];
-            $_SESSION["role"] = $user["role"];
-
-            echo "<script>
-                    alert('Connexion réussie ! Bienvenue, " . $user["prenom"] . "');
-                    window.location.href = '../../html/accueil.html'; // Rediriger vers la page principale
-                  </script>";
-        } else {
-            echo "<script>
-                alert('Identifiants incorrects.');
-                window.location.href = '../../html/connexion.html'; // Rediriger vers la page principale
-                </script>";
-        }
+    // Vérification : utilisateur trouvé
+    if (!$utilisateur) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Aucun utilisateur trouvé avec cet email.'
+        ]);
+        exit;
     }
+
+    // Vérification : mot de passe (actuellement en clair — à remplacer par hashé plus tard)
+    if ($motDePasse !== $utilisateur['mdp']) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Mot de passe incorrect.'
+        ]);
+        exit;
+    }
+
+    // Supprimer le mot de passe du tableau avant envoi
+    unset($utilisateur['mdp']);
+
+    // ✅ Réponse positive
+    echo json_encode([
+        'success' => true,
+        'utilisateur' => $utilisateur
+    ]);
+
 } catch (PDOException $e) {
-    die("Erreur : " . $e->getMessage());
+    echo json_encode([
+        'success' => false,
+        'message' => 'Erreur serveur : ' . $e->getMessage()
+    ]);
+    exit;
 }
 ?>
