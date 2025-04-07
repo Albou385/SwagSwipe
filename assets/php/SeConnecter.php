@@ -39,10 +39,20 @@ try {
 
     unset($utilisateur['mdp']); // Ne pas exposer le mot de passe
 
+    
     echo json_encode([
         'success' => true,
         'utilisateur' => $utilisateur
     ]);
+    
+// Démarrer la session et stocker les informations de l'utilisateur
+session_start();
+$_SESSION['utilisateur'] = $utilisateur;
+
+// Rediriger après authentification
+header('Location: ../../html/accueil.html');
+exit;
+
 
 } catch (PDOException $e) {
     echo json_encode([

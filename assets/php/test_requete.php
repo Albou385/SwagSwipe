@@ -1,4 +1,8 @@
 <?php
+session_start();
+echo "<h1>Test de connexion à la base de données</h1>";
+$utilisateur = $_SESSION['utilisateur']; 
+echo "<h2>Utilisateur connecté : {$utilisateur['prenom']} {$utilisateur['nom']}</h2>";
 // Connexion sécurisée à la base de données Azure avec test de requête
 
 $host = 'swagswipeserveur.mysql.database.azure.com';
