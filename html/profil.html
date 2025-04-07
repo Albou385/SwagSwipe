@@ -7,15 +7,15 @@
   <link rel="stylesheet" href="../assets/css/styleAccueil.css" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/session_utilisateur.js" defer></script>
+
 </head>
 
 <body class="body-style">
   <header class="header-style">
     <img src="../assets/img/logo.png" alt="logo" class="logo" />
-    <div class="top-right-buttons">
-      <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
-      <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
-    </div>
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
     <h1 class="site-title">
       <a href="swipe.html">SwagSwipe</a>
     </h1>
@@ -77,5 +77,35 @@
       <p>&copy; 2025 SwagSwipe</p>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const zoneUtilisateur = document.getElementById("zone-utilisateur");
+      const utilisateur = JSON.parse(localStorage.getItem("utilisateurConnecte"));
+  
+      if (zoneUtilisateur) {
+        if (utilisateur) {
+          zoneUtilisateur.innerHTML = `
+            <span style="margin-right: 10px; font-weight: bold;">
+              👋 Bonjour, ${utilisateur.prenom}
+            </span>
+            <button class="nav-button" onclick="deconnecter()">Se déconnecter</button>
+          `;
+        } else {
+          zoneUtilisateur.innerHTML = `
+            <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
+            <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
+          `;
+        }
+      }
+    });
+  
+    function deconnecter() {
+      localStorage.removeItem("utilisateurConnecte");
+      alert("👋 Vous avez été déconnecté.");
+      window.location.href = "accueil.html"; // Redirection après déconnexion
+    }
+  </script>  
+  
 </body>
 </html>

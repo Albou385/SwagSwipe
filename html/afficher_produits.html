@@ -7,6 +7,8 @@
 
     <!-- JS depuis dossier js -->
     <script defer src="../assets/js/scripts.js"></script>
+    <script src="../assets/js/session_utilisateur.js" defer></script>
+
 
     <!-- CSS depuis dossier css -->
     <link rel="stylesheet" href="../assets/css/styleAfficher_Produits.css">
@@ -23,10 +25,8 @@
     <!-- ✅ En-tête -->
     <header class="header-style">
         <img src="../assets/img/logo.png" alt="logo" class="logo">
-        <div class="top-right-buttons">
-            <button class="nav-button" onclick="window.location.href='creation_utilisateur.html'">Inscription</button>
-            <button class="nav-button" onclick="window.location.href='connexion.html'">Connexion</button>
-        </div>
+        <div class="top-right-buttons" id="zone-utilisateur"></div>
+
         <h1 class="site-title">
             <a href="swipe.html">SwagSwipe</a>
         </h1>    

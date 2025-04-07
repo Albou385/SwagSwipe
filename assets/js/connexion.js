@@ -16,13 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const formData = new FormData(form);
 
+        console.log("Tentative de connexion avec :", email, motDePasse);
+
         fetch(form.action, {
             method: "POST",
             body: formData
         })
         .then(resp => resp.json())
         .then(data => {
-            if (data.succes) {
+            if (data.success) {
                 // ✅ Connexion réussie : enregistrer les infos dans localStorage
                 localStorage.setItem("utilisateurConnecte", JSON.stringify(data.utilisateur));
                 alert("Bienvenue, " + data.utilisateur.prenom + " !");
