@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST["nom"];
     $email = $_POST["email"];
     $telephone = $_POST["telephone"];
-    $numero_civil = $_POST["numero_civil"];
+    $numero_civique = $_POST["numero_civil"];
     $rue = $_POST["rue"];
     $ville = $_POST["ville"];
     $code_postal = $_POST["code_postal"];
@@ -27,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($verif->rowCount() > 0) {
         die("Cet email est déjà utilisé !");
     }
-    echo $mot_de_passe;
 
     // Insérer l'utilisateur dans la base de données
+<<<<<<< HEAD
     $requete = $pdo->prepare("INSERT INTO utilisateur 
         (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -48,6 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ]);
 
 
+=======
+    $requete = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $requete->execute([$nom, $prenom, $email, $telephone, $mot_de_passe, $numero_civique, $rue, $ville, $code_postal, 'usager']);
+>>>>>>> aaf2dc172c84c660dc5805d091eafe0d3b9eaf79
 
     echo "<script>
         alert('Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');

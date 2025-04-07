@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo "<h1>Profil Utilisateur</h1>";
 
 // Redirection si l'utilisateur n'est pas connecté
 if (!isset($_SESSION['user_id'])) {
