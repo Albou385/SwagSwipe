@@ -95,15 +95,17 @@
 
       if (!email) {
         erreurs.push("L'adresse courriel est requise.");
-      } else if (!emailRegex.test(email)) {
+      } /*else if (!emailRegex.test(email)) {
         erreurs.push("L'adresse courriel n'est pas valide.");
       }
-
+        */
+/*
       if (!motDePasse) {
         erreurs.push("Le mot de passe est requis.");
       } else if (motDePasse.length < 6) {
         erreurs.push("Le mot de passe doit contenir au moins 6 caractères.");
       }
+        */
 
       const messageErreur = document.getElementById("message-erreur");
       messageErreur.innerHTML = "";
@@ -114,9 +116,28 @@
         return false;
       }
 
+      /*
       messageErreur.style.display = "none";
       alert("Connexion validée, fonctionnalité à venir.");
       return false;
+      */
+
+    let formData = new FormData();
+    formData.append("email", email);
+    formData.append("mot_de_passe", motDePasse);
+
+    // Envoi des données en AJAX à SeConnecter.php
+    fetch("chemin/vers/SeConnecter.php", {  // Ajuste le chemin ici
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.text())  // Récupère la réponse en texte
+    .then(data => {
+        console.log(data);  // Pour voir ce que renvoie PHP dans la console
+        document.body.innerHTML += data; // Injecte le script alert() de PHP dans la page
+    })
+    .catch(error => console.error("Erreur AJAX :", error));
+
     }
   </script>
 </head>

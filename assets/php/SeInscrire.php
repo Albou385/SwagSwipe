@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST["nom"];
     $email = $_POST["email"];
     $telephone = $_POST["telephone"];
-    $numero_civil = $_POST["numero_civil"];
+    $numero_civique = $_POST["numero_civil"];
     $rue = $_POST["rue"];
     $ville = $_POST["ville"];
     $code_postal = $_POST["code_postal"];
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // Vérifier si l'email existe déjà
-    $verif = $pdo->prepare("SELECT * FROM utilisateur WHERE adresse_courriel = ?");
+    $verif = $pdo->prepare("SELECT * FROM utilisateur WHERE email = ?");
     $verif->execute([$email]);
 
     if ($verif->rowCount() > 0) {
@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo $mot_de_passe;
 
     // Insérer l'utilisateur dans la base de données
-    $requete = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, adresse_courriel, telephone, mdp, ville, pays, code_postal, role) 
-                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$nom, $prenom, $email, $telephone, $motDePasse, $ville, 'Canada', $code_postal, 'usager' ]);
+    $requete = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
+                              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $requete->execute([$nom, $prenom, $email, $telephone, $motDePasse, $numero_civique, $rue, $ville, $code_postal, 'usager']);
 
     echo "<script>
         alert('Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');
