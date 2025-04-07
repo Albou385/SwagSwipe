@@ -27,12 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($verif->rowCount() > 0) {
         die("Cet email est déjà utilisé !");
     }
-    echo $mot_de_passe;
 
     // Insérer l'utilisateur dans la base de données
     $requete = $pdo->prepare("INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $requete->execute([$nom, $prenom, $email, $telephone, $motDePasse, $numero_civique, $rue, $ville, $code_postal, 'usager']);
+    $requete->execute([$nom, $prenom, $email, $telephone, $mot_de_passe, $numero_civique, $rue, $ville, $code_postal, 'usager']);
 
     echo "<script>
         alert('Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');
