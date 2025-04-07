@@ -3,7 +3,7 @@ $host = 'swagswipeserveur.mysql.database.azure.com';
 $dbname = 'SwagSwipe';
 $username = 'adminSwag';
 $password = 'SwaggySwipe123';
-$sslCertPath = __DIR__ . '/../BaltimoreCyberTrustRoot.crt.pem';
+// $sslCertPath = __DIR__ . '/../BaltimoreCyberTrustRoot.crt.pem';
 
 $options = [
     PDO::MYSQL_ATTR_SSL_CA => $sslCertPath,
@@ -25,6 +25,7 @@ try {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]
     );
+    
     
     //echo "✅ Connexion réussie à la base de données Azure !";
 } catch (PDOException $e) {
