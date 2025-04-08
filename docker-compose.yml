@@ -1,0 +1,75 @@
+services:
+  web:
+    container_name: SwagSwipe
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8002:80" # http://localhost:8002
+    volumes:
+      - .:/var/www/html
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - SwagSwipe-network
+
+  db:
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: SwagSwipe-db
+    restart: always
+    ports:
+      - "3306:3306" # mysql://root:rootpassword@localhost:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - SwagSwipe-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: SwagSwipe-phpmyadmin
+    restart: always
+    ports:
+      - "8070:80" # http://localhost:8070
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - SwagSwipe-network
+
+volumes:
+  dbdata:
+
+networks:
+  SwagSwipe-network:
+    driver: bridge
