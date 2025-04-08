@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profil - SwagSwipe</title>
-  <link rel="stylesheet" href="../assets/css/styleAccueil.css">
+  <link rel="stylesheet" href="./assets/css/styleAccueil.css">
 </head>
 <body class="body-style">
   <header class="header-style">
-    <img src="../assets/img/logo.png" alt="logo" class="logo">
+    <img src="./assets/img/logo.png" alt="logo" class="logo">
     <h1 class="site-title"><a href="swipe.html">SwagSwipe</a></h1>
     <p class="slogan">Le style à petit prix</p>
     <div class="nav-style">
