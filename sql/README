@@ -1,8 +1,0 @@
-
-## Comment installer la base de donnee
-
-## 1. Installer l'extension MySQL (icone orange/bleu)
-## 2. Connecter ton serveur local XAMPP a la base de donnee, quant tu cliques sur start dans le control panel MySQL ca te donne un port (normalement c'est 3306) c'est celui que tu dois mettre pour te connecter a la base de donnee
-## 3. La base de donnee est vide pour l'instant mais tu ajoute un file dans Query ayant le meme nom que celui dans le projet, tu peux copier coller les lignes de code qui sont dans le query du programme SwagSwipe et les coller dans le nouveau fichier creer dans celui de la base de donne
-## 4.Meme chose pour l'insertion manuelle des utilisateurs, le fichier est deja cree dans notre programme
-## 5. Chaque changement dans la base de donne devra se faire dans le programme et ensuite copier coller chacun de notre bord dans notre base de donne personnelle parce que le serveur est local a notre machine, faut se communiquer pour se dire quand est ce qu'on change quelque chose dans la bd si c'est utile
