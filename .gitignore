@@ -1,0 +1,40 @@
+# --- Général ---
+*.log
+*.env
+.DS_Store
+*.pem
+*.key
+*.crt
+.vscode/
+.idea/
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# --- PHP ---
+vendor/
+composer.lock
+
+# --- Docker ---
+docker-compose.override.yml
+.docker/
+
+# --- Apache / serveur local ---
+*.pid
+*.sock
+
+# --- Frontend ---
+/frontend/js/bundles/
+/frontend/css/*.map
+
+# --- OS ---
+Thumbs.db
+ehthumbs.db
+
+# --- Git ---
+.gitmodules
+
+# --- Éditeur ---
+*.swp
+*.swo
+*~

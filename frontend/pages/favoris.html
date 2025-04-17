@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwagSwipe - Favoris</title>
+
+  <!-- JS -->
+  <script defer src="../js/favoris.js"></script>
+  <script src="../js/session_utilisateur.js" defer></script>
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/styleAccueil.css" />
+  <link rel="stylesheet" href="../css/styleFavoris.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="body-style">
+  <!-- En-tête -->
+  <header class="header-style">
+    <img src="../img/logo.png" alt="logo" class="logo" />
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
+    <h1 class="site-title">
+      <a href="swipe.html">SwagSwipe</a>
+    </h1>
+    <p class="slogan">Le style à petit prix</p>
+    <div class="nav-style">
+      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+    </div>
+
+    <section class="favorites-header">
+      <h2>🧡 Mes Favoris</h2>
+      <button id="clearFavorites" class="btn-clear">🗑️ Vider les Favoris</button>
+    </section>
+  </header>
+  
+
+  <!-- Grille d'affichage -->
+  <div class="produit_favoris">
+    <section id="favoritesGrid" class="favorites-container">
+      <!-- Les favoris seront injectés ici par JS -->
+    </section>
+  </div>
+    <!-- Fenêtre modale pour message -->
+  <div id="modal-message" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <h3>Contacter le vendeur</h3>
+      <textarea id="message-text" rows="6" style="width:100%; padding:10px;"></textarea>
+      <div id="message-history" style="margin-top:20px;">
+        <h4>Historique de discussion</h4>
+        <ul id="history-list" style="font-size: 0.9rem; list-style-type: disc; padding-left: 20px;"></ul>
+      </div>      
+      <br />
+      <a id="send-whatsapp" class="nav-button" target="_blank">📤 WhatsApp</a>
+      <a id="send-sms" class="nav-button" target="_blank">📱 SMS</a>
+
+    </div>
+  </div>
+
+
+  <!-- Pied de page -->
+  <footer>
+    <div class="grid-container">
+      <!-- Contact -->
+      <div class="grid-item">
+        <h2>Contact</h2>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon" /> support@swagswipe.com</p>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon" /> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+        <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon" /> +1 (514) 547-8965</p>
+      </div>
+
+      <!-- Logo -->
+      <div class="grid-item">
+        <a href="#top">
+          <img src="../img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
+        </a>
+      </div>
+
+      <!-- Réseaux / App -->
+      <div class="grid-item">
+        <div class="footer-app-review">
+          <div class="footer-app">
+            <a href="#">
+              <img src="../img/phone.png" alt="Télécharger l'app" class="application-icon" />
+              <p>Télécharger l'app</p>
+            </a>
+          </div>
+          <div class="footer-review">
+            <a href="avis.html">
+              <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application" />
+              <p class="review-text">Laisser un avis</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="droit_auteur">
+      <p>&copy; 2025 SwagSwipe</p>
+    </div>
+  </footer>
+</body>
+</html>
