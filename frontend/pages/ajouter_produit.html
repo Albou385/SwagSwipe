@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Produit</title>
+    <title>SwagSwipe - Ajouter un Produit</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="frontend/css/styleAccueil.css">
-    <script src="frontend/js/session_utilisateur.js" defer></script>
-
-
+    <link rel="stylesheet" href="/frontend/css/styleAccueil.css">
+    
     <!-- Polices -->
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- JS -->
+    <script src="/frontend/js/session_utilisateur.js" defer></script>
+    <script src="/frontend/js/ajouter_produit.js" defer></script>
 
     <style>
         body {
@@ -45,7 +47,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        .button {
+        button {
             color: white;
             border-radius: 4px;
             cursor: pointer;
@@ -61,63 +63,55 @@
             background-color: #aaa;
             cursor: not-allowed;
         }
-        .footer {
+        .image-preview {
+            margin-top: 10px;
             text-align: center;
-            margin-top: 20px;
-            color: white;
+            display: none;
+        }
+        .required-field::after {
+            content: "*";
+            color: red;
+            margin-left: 4px;
         }
     </style>
-
-    <script>
-        function verifierChamps() {
-            let nomProduit = document.getElementById("nom_produit").value.trim();
-            let marque = document.getElementById("marque_produit").value.trim();
-            let prix = document.getElementById("prix_produit").value.trim();
-            let grandeur = document.getElementById("grandeur_produit").value;
-            let type = document.getElementById("type_produit").value;
-            let fichier = document.getElementById("fichier_produit").files.length;
-            let description = document.getElementById("description_produit").value.trim();
-
-            let bouton = document.getElementById("btnAjouter");
-            bouton.disabled = (nomProduit === "" || marque === "" || prix === "" || grandeur === "" || type === "" || fichier === 0 || description === "");
-        }
-    </script>
 </head>
 
 <body class="body-style">
     <!-- ✅ En-tête -->
     <header class="header-style">
-        <img src="../assets/img/logo.png" alt="logo" class="logo">
+        <a href="/">
+            <img src="/frontend/img/logo.png" alt="logo" class="logo">
+        </a>
         <div class="top-right-buttons" id="zone-utilisateur"></div>
 
         <h1 class="site-title">
-            <a href="swipe.html">SwagSwipe</a>
+            <a href="/swipe">SwagSwipe</a>
         </h1>
         <p class="slogan">Le style à petit prix</p>
-        <div class="nav-style">
-            <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-            <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-            <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-            <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-        </div>
+        <nav class="nav-style">
+            <a class="nav-button" href="/">Accueil</a>
+            <a class="nav-button" href="/afficher_produits">Produits</a>
+            <a class="nav-button" href="/favoris">Favoris</a>
+            <a class="nav-button" href="/profil">Profil</a>
+        </nav>
     </header>
 
     <!-- ✅ Formulaire -->
     <div class="container">
         <h1>Ajouter un Produit</h1>
 
-        <form method="post" action="../assets/php/ajouter_produit_traitement.php" method="POST" enctype="multipart/form-data">
-            <label for="nom_produit">Nom du produit</label>
-            <input type="text" id="nom_produit" name="nom_produit" required oninput="verifierChamps()">
+        <form id="product-form" method="post" action="/api/image" enctype="multipart/form-data">
+            <label for="nom_produit" class="required-field">Nom du produit</label>
+            <input type="text" id="nom_produit" name="nom_produit" required>
 
-            <label for="marque_produit">Marque du produit</label>
-            <input type="text" id="marque_produit" name="marque_produit" required oninput="verifierChamps()">
+            <label for="marque_produit" class="required-field">Marque du produit</label>
+            <input type="text" id="marque_produit" name="marque_produit" required>
 
-            <label for="prix_produit">Prix du produit ($)</label>
-            <input type="number" id="prix_produit" name="prix_produit" required oninput="verifierChamps()" step="0.01">
+            <label for="prix_produit" class="required-field">Prix du produit ($)</label>
+            <input type="number" id="prix_produit" name="prix_produit" required step="0.01" min="0.01">
 
-            <label for="grandeur_produit">Grandeur</label>
-            <select id="grandeur_produit" name="grandeur_produit" required onchange="verifierChamps()">
+            <label for="grandeur_produit" class="required-field">Grandeur</label>
+            <select id="grandeur_produit" name="grandeur_produit" required>
                 <option value="">-- Sélectionnez une grandeur --</option>
                 <option value="xsmall">Extra Small</option>
                 <option value="small">Small</option>
@@ -126,8 +120,8 @@
                 <option value="xlarge">Extra Large</option>
             </select>
 
-            <label for="type_produit">Type de produit</label>
-            <select id="type_produit" name="type_produit" required onchange="verifierChamps()">
+            <label for="type_produit" class="required-field">Type de produit</label>
+            <select id="type_produit" name="type_produit" required>
                 <option value="">-- Sélectionnez un type --</option>
                 <option value="chandail">Chandail</option>
                 <option value="pantalon">Pantalon</option>
@@ -136,13 +130,17 @@
                 <option value="robe">Robe</option>
                 <option value="jupe">Jupe</option>
                 <option value="camisole">Camisole</option>
+                <option value="soulier">Soulier</option>
+                <option value="plein_air">Vêtement plein air</option>
             </select>
 
-            <label for="fichier_produit">Ajouter une image (png uniquement)</label>
-            <input type="file" id="fichier_produit" name="fichier_produit" accept="image/png" required onchange="verifierChamps()">
+            <label for="fichier_produit" class="required-field">Ajouter une image (png uniquement)</label>
+            <input type="file" id="fichier_produit" name="fichier_produit" accept="image/png" required>
+            <div id="image-preview" class="image-preview"></div>
 
-            <label for="description_produit">Description du produit</label>
-            <textarea id="description_produit" name="description_produit" rows="4" required oninput="verifierChamps()" placeholder="Décrivez le produit ici..."></textarea>
+            <label for="description_produit" class="required-field">Description du produit</label>
+            <textarea id="description_produit" name="description_produit" rows="4" required 
+                      placeholder="Décrivez le produit ici..."></textarea>
 
             <button id="btnAjouter" type="submit" disabled>Ajouter le produit</button>
         </form>
@@ -160,7 +158,7 @@
 
             <div class="grid-item">
                 <a href="#top">
-                    <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+                    <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
                 </a>
             </div>
 
@@ -168,12 +166,12 @@
                 <div class="footer-app-review">
                     <div class="footer-app">
                         <a href="#">
-                            <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                            <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon">
                             <p>Télécharger l'app</p>
                         </a>
                     </div>
                     <div class="footer-review">
-                        <a href="avis.html">
+                        <a href="/avis">
                             <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
                             <p class="review-text">Laisser un avis</p>
                         </a>

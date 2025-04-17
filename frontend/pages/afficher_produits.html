@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwagSwipe - Affichage des Produits</title>
 
-    <!-- JS depuis dossier js -->
-    <script defer src="frontend//js/scripts.js"></script>
-    <script src="frontend//js/session_utilisateur.js" defer></script>
-
-
     <!-- CSS depuis dossier css -->
-    <link rel="stylesheet" href="frontend//css/styleAfficher_Produits.css">
+    <link rel="stylesheet" href="/frontend/css/styleAfficher_Produits.css">
     
     <!-- Polices -->
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- JS depuis dossier js -->
+    <script src="/frontend/js/session_utilisateur.js" defer></script>
+    <script src="/frontend/js/scripts.js" defer></script>
 </head>
 
 <body class="body-style">
@@ -24,19 +23,21 @@
 
     <!-- ✅ En-tête -->
     <header class="header-style">
-        <img src="frontend//img/logo.png" alt="logo" class="logo">
+        <a href="/">
+            <img src="/frontend/img/logo.png" alt="logo" class="logo">
+        </a>
         <div class="top-right-buttons" id="zone-utilisateur"></div>
 
         <h1 class="site-title">
-            <a href="swipe.html">SwagSwipe</a>
+            <a href="/swipe">SwagSwipe</a>
         </h1>    
         <p class="slogan">Le style à petit prix</p>
-        <div class="nav-style">
-            <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-            <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-            <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-            <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-        </div>
+        <nav class="nav-style">
+            <a class="nav-button" href="/">Accueil</a>
+            <a class="nav-button" href="/afficher_produits">Produits</a>
+            <a class="nav-button" href="/favoris">Favoris</a>
+            <a class="nav-button" href="/profil">Profil</a>
+        </nav>
 
         <!-- ✅ Barre de recherche & filtres -->
         <div class="search-filter">
@@ -51,7 +52,7 @@
                 <option value="robes">Robe</option>
                 <option value="jupes">Jupe</option>
                 <option value="camisoles">Camisole</option>
-                <option value="soulier">souliers</option>
+                <option value="soulier">Souliers</option>
             </select>
             <select id="sortOptions">
                 <option value="prix-desc">Prix décroissant</option>
@@ -87,7 +88,7 @@
             <!-- Section Logo -->
             <div class="grid-item">
                 <a href="#top">
-                    <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+                    <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
                 </a>
             </div>
 
@@ -96,12 +97,12 @@
                 <div class="footer-app-review">
                     <div class="footer-app">
                         <a href="#">
-                            <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+                            <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon">
                             <p>Télécharger l'app</p>
                         </a>
                     </div>
                     <div class="footer-review">
-                        <a href="avis.html">
+                        <a href="/avis">
                             <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
                             <p class="review-text">Laisser un avis</p>
                         </a>

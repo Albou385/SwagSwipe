@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once __DIR__ . '/../../../config.php';   // $pdo comes from config.php
+require_once __DIR__ . '/../../config.php';
 
 /** ----------------------------------------------------------------
  *  Auth helpers
@@ -55,7 +55,7 @@ function registerUser(
     $stmt = $pdo->prepare(
         'INSERT INTO utilisateur
          (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
-         VALUES (?, ?, ?, ?, ?, "", "", "", "", ?)'   -- minimal fields; adjust as needed
+         VALUES (?, ?, ?, ?, ?, "", "", "", "", ?)'
     );
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
