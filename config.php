@@ -11,10 +11,10 @@ error_reporting(E_ALL);
 $isCloudEnv = getenv('CLOUD_ENV') == 'true';
 
 // Local environment settings
-$host = "tch099-db";
-$db   = "mydatabase";
-$user = "user";
-$pass = "password";
+$host = "swagswipeserveur.mysql.database.azure.com";
+$db   = "swagswipe";
+$user = "adminSwag";
+$pass = "SwaggySwipe123";
 $port = '3306';
 $charset = 'utf8mb4';
 
@@ -30,7 +30,6 @@ $options = [
 try {
     // Declare the PDO object as a global variable
     $GLOBALS['pdo'] = new PDO($dsn, $user, $pass, $options);
-    echo "Database connection successful.";
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }

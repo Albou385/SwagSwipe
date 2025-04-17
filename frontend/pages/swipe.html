@@ -5,35 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SwagSwipe - Swipe</title>
 
-  <!-- Chemins corrigés -->
-  <link rel="stylesheet" href="frontend//css/styleSwipe.css" />
-  <script defer src="frontend/js/swipe.js"></script>
-  <script src="frontend/js/session_utilisateur.js" defer></script>
-
-
+  <!-- CSS -->
+  <link rel="stylesheet" href="/frontend/css/styleSwipe.css" />
+  
+  <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <!-- JavaScript -->
+  <script src="/frontend/js/session_utilisateur.js" defer></script>
+  <script src="/frontend/js/swipe.js" defer></script>
+
+  <style>
+    /* Loading spinner */
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid black;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 15px;
+    }
+    
+    .empty-state, .error-state {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .empty-state h3, .error-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .swipe-left-hint {
+      border-left: 5px solid #e74c3c !important;
+    }
+    
+    .swipe-right-hint {
+      border-right: 5px solid #27ae60 !important;
+    }
+  </style>
 </head>
 
-<body>
-
+<body class="body-style">
   <!-- En-tête -->
   <header class="header-style">
-    <img src="frontend/img/logo.png" alt="logo" class="logo">
-
-    <!-- ✅ Zone dynamique utilisateur -->
+    <a href="/">
+      <img src="/frontend/img/logo.png" alt="logo" class="logo">
+    </a>
+    
+    <!-- Zone dynamique utilisateur -->
     <div class="top-right-buttons" id="zone-utilisateur"></div>
 
     <h1 class="site-title">
-      <a href="swipe.html">SwagSwipe</a>
+      <a href="/swipe">SwagSwipe</a>
     </h1>
     <p class="slogan">Le style à petit prix</p>
 
-    <div class="nav-style">
-      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-    </div>
+    <nav class="nav-style">
+      <a class="nav-button" href="/">Accueil</a>
+      <a class="nav-button" href="/afficher_produits">Produits</a>
+      <a class="nav-button" href="/favoris">Favoris</a>
+      <a class="nav-button" href="/profil">Profil</a>
+    </nav>
   </header>
 
   <!-- Conteneur principal du Swipe -->
@@ -51,8 +102,12 @@
       <p id="product-pays"></p>
     </div>
     <div class="swipe-actions">
-      <button id="reject-btn">❌</button>
-      <button id="accept-btn">❤️</button>
+      <button id="reject-btn" aria-label="Pas intéressé">❌</button>
+      <button id="accept-btn" aria-label="Intéressé">❤️</button>
+    </div>
+    <div class="swipe-instructions">
+      <p>Glissez vers la gauche pour passer, vers la droite pour ajouter aux favoris</p>
+      <p>Ou utilisez les boutons ci-dessus</p>
     </div>
   </section>
 
@@ -64,14 +119,14 @@
     <div class="grid-container">
       <div class="grid-item">
         <h2>Contact</h2>
-        <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" class="footer-icon"> support@swagswipe.com</p>
-        <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
-        <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" class="footer-icon"> +1 (514) 547-8965</p>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" class="footer-icon" alt="Email"> support@swagswipe.com</p>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" class="footer-icon" alt="Adresse"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+        <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" class="footer-icon" alt="Téléphone"> +1 (514) 547-8965</p>
       </div>
 
       <div class="grid-item">
         <a href="#top">
-          <img src="frontend//img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
+          <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
         </a>
       </div>
 
@@ -79,13 +134,13 @@
         <div class="footer-app-review">
           <div class="footer-app">
             <a href="#">
-              <img src="frontend/img/phone.png" class="application-icon">
+              <img src="/frontend/img/phone.png" class="application-icon" alt="Application mobile">
               <p>Télécharger l'app</p>
             </a>
           </div>
 
           <div class="footer-review">
-            <a href="avis.html">
+            <a href="/avis">
               <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
               <p class="review-text">Laisser un avis</p>
             </a>
@@ -98,6 +153,5 @@
       <p>&copy; 2025 SwagSwipe</p>
     </div>
   </footer>
-
 </body>
 </html>
