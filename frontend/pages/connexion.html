@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page de Connexion</title>
+  <title>SwagSwipe - Connexion</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="frontend//css/styleConnexion.css" />
-  <script src="frontend/js/session_utilisateur.js" defer></script>
-
-
+  <link rel="stylesheet" href="/frontend/css/styleConnexion.css" />
+  
   <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <!-- JavaScript -->
+  <script src="/frontend/js/session_utilisateur.js" defer></script>
+  <script src="/frontend/js/login.js" defer></script>
 
   <style>
     .container {
@@ -53,11 +55,17 @@
       border-radius: 5px;
       font-family: 'Montserrat', sans-serif;
       text-decoration: none;
+      width: 100%;
     }
 
-    button:hover {
+    .button:hover {
       background-color: rgb(120, 122, 124);
       color: #fff;
+    }
+
+    .button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
     }
 
     .form-section {
@@ -82,104 +90,51 @@
       font-size: 14px;
       margin-bottom: 10px;
       display: none;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: rgba(255, 0, 0, 0.1);
     }
   </style>
-
-  <script>
-    function validerFormulaire(event) {
-      event.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const motDePasse = document.getElementById("mot_de_passe").value.trim();
-
-      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-      const erreurs = [];
-
-      if (!email) {
-        erreurs.push("L'adresse courriel est requise.");
-      } /*else if (!emailRegex.test(email)) {
-        erreurs.push("L'adresse courriel n'est pas valide.");
-      }
-        */
-/*
-      if (!motDePasse) {
-        erreurs.push("Le mot de passe est requis.");
-      } else if (motDePasse.length < 6) {
-        erreurs.push("Le mot de passe doit contenir au moins 6 caractères.");
-      }
-        */
-
-      const messageErreur = document.getElementById("message-erreur");
-      messageErreur.innerHTML = "";
-
-      if (erreurs.length > 0) {
-        messageErreur.innerHTML = erreurs.map(e => `<p>${e}</p>`).join("");
-        messageErreur.style.display = "block";
-        return false;
-      }
-
-      /*
-      messageErreur.style.display = "none";
-      alert("Connexion validée, fonctionnalité à venir.");
-      return false;
-      */
-
-    let formData = new FormData();
-    formData.append("email", email);
-    formData.append("mot_de_passe", motDePasse);
-
-    // Envoi des données en AJAX à SeConnecter.php
-    fetch("chemin/vers/SeConnecter.php", {  // Ajuste le chemin ici
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.text())  // Récupère la réponse en texte
-    .then(data => {
-        console.log(data);  // Pour voir ce que renvoie PHP dans la console
-        document.body.innerHTML += data; // Injecte le script alert() de PHP dans la page
-    })
-    .catch(error => console.error("Erreur AJAX :", error));
-
-    }
-  </script>
 </head>
 <body class="body-style">
   <!-- En-tête -->
   <header class="header-style">
-    <img src="../assets/img/logo.png" alt="logo" class="logo" />
+    <a href="/">
+      <img src="/frontend/img/logo.png" alt="logo" class="logo" />
+    </a>
     <div class="top-right-buttons" id="zone-utilisateur"></div>
 
     <h1 class="site-title">
-      <a href="swipe.html">SwagSwipe</a>
+      <a href="/swipe">SwagSwipe</a>
     </h1>
     <p class="slogan">Le style à petit prix</p>
-    <div class="nav-style">
-      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-    </div>
+    <nav class="nav-style">
+      <a class="nav-button" href="/">Accueil</a>
+      <a class="nav-button" href="/afficher_produits">Produits</a>
+      <a class="nav-button" href="/favoris">Favoris</a>
+      <a class="nav-button" href="/profil">Profil</a>
+    </nav>
   </header>
 
   <!-- Formulaire de Connexion -->
   <div class="container">
     <h1>Connexion à votre compte</h1>
-    <form id="form-connexion" method="POST" action="../assets/php/SeConnecter.php">
+    <form id="form-connexion" method="POST" action="/api/login">
       <div id="message-erreur"></div>
       <div class="form-section">
         <div class="form-item">
           <label for="email">Adresse Courriel</label>
-          <input type="email" id="email" name="email" placeholder="exemple@domaine.com" />
+          <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required />
         </div>
 
         <div class="form-item">
           <label for="mot_de_passe">Mot de Passe</label>
-          <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Votre mot de passe" />
+          <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Votre mot de passe" required />
         </div>
       </div>
       <button class="button" type="submit">Se Connecter</button>
       <div class="link-container">
-        <p>Pas encore de compte ? <a href="creation_utilisateur.html">Créer un compte</a></p>
+        <p>Pas encore de compte ? <a href="/signup">Créer un compte</a></p>
       </div>
     </form>
   </div>
@@ -195,19 +150,19 @@
       </div>
       <div class="grid-item">
         <a href="#top">
-          <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
+          <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
         </a>
       </div>
       <div class="grid-item">
         <div class="footer-app-review">
           <div class="footer-app">
             <a href="#">
-              <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon">
+              <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon">
               <p>Télécharger l'app</p>
             </a>
           </div>
           <div class="footer-review">
-            <a href="avis.html">
+            <a href="/avis">
               <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
               <p class="review-text">Laisser un avis</p>
             </a>
