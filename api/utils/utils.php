@@ -1,80 +1,88 @@
 <?php
-require_once __DIR__ . '/../../config.php';
+// Always start session once per request
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-function loginUser($username, $password) {
+require_once __DIR__ . '/../../../config.php';   // $pdo comes from config.php
+
+/** ----------------------------------------------------------------
+ *  Auth helpers
+ * ----------------------------------------------------------------*/
+function loginUser(string $email, string $password): bool
+{
     $pdo = $GLOBALS['pdo'];
-    $stmt = $pdo->prepare('SELECT * FROM Clients WHERE username = ?');
-    $stmt->execute([$username]);
-    $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $_SESSION['user_loggedin'] = $user['id'];
-        $_SESSION['user_details'] = [
-            'username' => $user['username'],
+    $stmt = $pdo->prepare('SELECT * FROM utilisateur WHERE email = ?');
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['mdp'])) {
+        $_SESSION['utilisateur'] = [
+            'id'    => $user['id_user'],
             'email' => $user['email'],
-            'role' => $user['role']
+            'role'  => $user['role'],
+            'nom'   => $user['nom'],
+            'prenom'=> $user['prenom']
         ];
         return true;
     }
     return false;
 }
 
-function registerUser($username, $password, $email, $role) {
+function registerUser(
+    string $nom,
+    string $prenom,
+    string $email,
+    string $password,
+    string $telephone,
+    string $role = 'usager'
+): bool {
     $pdo = $GLOBALS['pdo'];
+    $validRoles = ['admin', 'usager'];
 
-    $validRoles = ['admin', 'client'];
-    if (!in_array($role, $validRoles)) {
-        throw new Exception('Invalid role provided');
+    if (!in_array($role, $validRoles, true)) {
+        throw new InvalidArgumentException('Rôle invalide');
     }
 
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $pdo->prepare('INSERT INTO Clients (username, password, email, role) VALUES (?, ?, ?, ?)');
-    return $stmt->execute([$username, $passwordHash, $email, $role]);
+    // Unique e‑mail enforced at DB, but catch duplicate for UX
+    $exists = $pdo->prepare('SELECT 1 FROM utilisateur WHERE email = ?');
+    $exists->execute([$email]);
+    if ($exists->fetchColumn()) {
+        throw new RuntimeException('Adresse courriel déjà utilisée');
+    }
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO utilisateur
+         (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role)
+         VALUES (?, ?, ?, ?, ?, "", "", "", "", ?)'   -- minimal fields; adjust as needed
+    );
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    return $stmt->execute([$nom, $prenom, $email, $telephone, $hash, $role]);
 }
 
-// The rest of your functions should follow the same pattern:
-function isUserLoggedIn() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    return isset($_SESSION['user_loggedin']);
+function isLoggedIn(): bool
+{
+    return isset($_SESSION['utilisateur']);
 }
 
-function logoutUser() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+function requireLogin(): void
+{
+    if (!isLoggedIn()) {
+        http_response_code(401);
+        echo json_encode(['status' => 'error', 'message' => 'Non autorisé']);
+        exit;
     }
+}
+
+function isAdmin(): bool
+{
+    return isLoggedIn() && $_SESSION['utilisateur']['role'] === 'admin';
+}
+
+function logoutUser(): void
+{
     session_unset();
     session_destroy();
 }
-
-function redirectIfNotLoggedIn() {
-    if (!isUserLoggedIn()) {
-        header('Location: /login');
-        exit();
-    }
-}
-
-function ensureLoggedIn() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    if (!isset($_SESSION['usager'])) {
-        header("Location: /login");
-        exit();
-    }
-}
-
-function isAdmin() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    if (isset($_SESSION['user_details']) && $_SESSION['user_details']['role'] === 'admin') {
-        return true;
-    }
-    return false;
-}
-?>

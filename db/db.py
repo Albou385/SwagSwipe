@@ -1,73 +1,109 @@
+#!/usr/bin/env python3
+"""
+SwagSwipe DB bootstrapper
+"""
+
+import subprocess, sys, os
+from pathlib import Path
+from textwrap import shorten
+
+# ----------------------------------------------------------------------
+# 1) Ensure dependencies (mysql‑connector‑python, python‑dotenv, rich, typer)
+# ----------------------------------------------------------------------
+REQUIRED = [
+    "mysql-connector-python",
+    "python-dotenv",
+    "rich",
+    "typer",
+]
+for pkg in REQUIRED:
+    try:
+        __import__(pkg.split("-")[0].replace("-", "_"))
+    except ModuleNotFoundError:
+        print(f"🔧  Installing missing package: {pkg} …")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+
 import mysql.connector
-from mysql.connector import Error
+from mysql.connector import errorcode
 from dotenv import load_dotenv
-import os
-# Load environment variables from .env file
+from rich.console import Console
+
+console = Console()
+
+# ----------------------------------------------------------------------
+# 2) Env vars
+# ----------------------------------------------------------------------
 load_dotenv()
+DB_HOST = "swagswipeserveur.mysql.database.azure.com"
+DB_USER = "adminSwag"
+DB_PASS = "SwaggySwipe123"
+DB_NAME = "swagswipe"
 
-# Database connection details
-db_host = os.getenv('DB_HOST')
-db_user = os.getenv('MYSQL_USER')
-db_password = os.getenv('MYSQL_PASSWORD')
-db_database = os.getenv('MYSQL_DATABASE')
+SQL_FILES = ["1create.sql", "2contraines.sql", "3insert.sql"]
 
-def create_connection(host_name, user_name, user_password, db_name):
-    connection = None
-    try:
-        connection = mysql.connector.connect(
-            host=host_name,
-            user=user_name,
-            passwd=user_password,
-            database=db_name
-        )
-        print("Connection to MySQL DB successful")
-    except Error as e:
-        print(f"The error '{e}' occurred")
-    return connection
+# ----------------------------------------------------------------------
+# 3) Helpers
+# ----------------------------------------------------------------------
+def connect():
+    console.print(f"🔗  Connecting to [bold]{DB_HOST}[/] / [cyan]{DB_NAME}[/] …")
+    return mysql.connector.connect(
+        host=DB_HOST, user=DB_USER, password=DB_PASS, database=DB_NAME
+    )
 
-def execute_query(connection, query):
-    cursor = connection.cursor()
-    try:
-        cursor.execute(query)
-        connection.commit()
-        print(f"Query executed successfully: {query}")
-    except Error as e:
-        print(f"The error '{e}' occurred when executing: {query}")
 
-def execute_script_from_file(connection, file_path):
-    cursor = connection.cursor()
-    with open(file_path, 'r') as file:
-        script = file.read()
+# 🛠️  pass the connection object, not cursor
+def run_script(conn, file_path: Path):
+    console.print(f"\n📄  Executing [green]{file_path.name}[/] …")
+    sql = file_path.read_text(encoding="utf-8")
+    cur = conn.cursor()
 
-    statements = script.split(';')
+    for raw in sql.split(";"):
+        stmt = raw.strip()
+        if not stmt:
+            continue
+        try:
+            cur.execute(stmt)
+            conn.commit()            # 🛠️ commit with the connection
+            console.print(f"  ✅ {shorten(stmt, 80)}")
+        except mysql.connector.Error as e:
+            if e.errno in {
+                errorcode.ER_TABLE_EXISTS_ERROR,
+                errorcode.ER_DUP_ENTRY,
+                errorcode.ER_DUP_KEYNAME,
+                errorcode.ER_BAD_TABLE_ERROR,
+            }:
+                console.print(
+                    f"  ⚠️  {shorten(stmt, 80)} → {e.msg} (ignored)",
+                    style="yellow",
+                )
+            else:
+                console.print(
+                    f"  ❌ {shorten(stmt, 80)} → {e.msg}",
+                    style="bold red",
+                )
+                raise
 
-    for statement in statements:
-        if statement.strip():
-            try:
-                cursor.execute(statement)
-                connection.commit()
-                print(f"Statement executed successfully: {statement}")
-            except Error as e:
-                if e.errno == 1050:  # Error code for "Table already exists"
-                    print(f"The error '{e}' occurred when executing statement: {statement} - Table already exists, continuing...")
-                elif e.errno == 1061:  # Error code for "Duplicate key name"
-                    print(f"The error '{e}' occurred when executing statement: {statement} - Duplicate key name, continuing...")
-                elif e.errno == 1062:  # Error code for "Duplicate entry"
-                    print(f"The error '{e}' occurred when executing statement: {statement} - Duplicate entry, continuing...")
-                elif e.errno == 1146:  # Error code for "Table doesn't exist"
-                    print(f"The error '{e}' occurred when executing statement: {statement} - Table doesn't exist, continuing...")
-                else:
-                    print(f"The error '{e}' occurred when executing statement: {statement}")
-                    
+
+# ----------------------------------------------------------------------
+# 4) Main
+# ----------------------------------------------------------------------
 def main():
-    connection = create_connection(db_host, db_user, db_password, db_database)
+    try:
+        conn = connect()
+    except mysql.connector.Error as e:
+        console.print(f"❌  Connection failed: {e.msg}", style="bold red")
+        sys.exit(1)
 
-    if connection:
-        execute_script_from_file(connection, "1create.sql")
-        execute_script_from_file(connection, "2contraines.sql")
-        execute_script_from_file(connection, "3insert.sql")
+    with conn:
+        for name in SQL_FILES:
+            path = Path(name).resolve()
+            if path.exists():
+                run_script(conn, path)   # 🛠️ pass conn
+            else:
+                console.print(f"⚠️  File {name} not found – skipped", style="yellow")
 
-        connection.close()
+    console.print("\n🎉  [bold green]Database setup complete.[/]")
+
 
 if __name__ == "__main__":
     main()

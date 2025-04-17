@@ -1,33 +1,20 @@
 <?php
-require_once(__DIR__ . "/utils/utils.php");
+require_once __DIR__ . '/utils/utils.php';
+header('Content-Type: application/json');
 
-header("Content-Type: application/json");
-
-$response = [];
-
-try {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $data = json_decode(file_get_contents("php://input"), true);
-        $username = $data['username'] ?? '';
-        $password = $data['password'] ?? '';
-
-        if (loginUser($username, $password)) {
-            $response['status'] = 'success';
-            $response['message'] = 'Login successful';
-            $response['redirect'] = '/home';
-        } else {
-            $response['status'] = 'error';
-            $response['message'] = 'Invalid username or password';
-            $response['redirect'] = '/login';
-        }
-    } else {
-        $response['status'] = 'error';
-        $response['message'] = 'Invalid request method';
-    }
-} catch (Exception $e) {
-    $response['status'] = 'error';
-    $response['message'] = 'An error occurred: ' . $e->getMessage();
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['status'=>'error','message'=>'Méthode non permise']);
+    exit;
 }
 
-echo json_encode($response);
-?>
+$data = json_decode(file_get_contents('php://input'), true);
+$email    = $data['email']    ?? '';
+$password = $data['password'] ?? '';
+
+if (loginUser($email, $password)) {
+    echo json_encode(['status'=>'success','redirect'=>'/home']);
+} else {
+    http_response_code(401);
+    echo json_encode(['status'=>'error','message'=>'Identifiants invalides']);
+}
