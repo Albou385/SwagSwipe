@@ -2,44 +2,52 @@
 require_once(__DIR__ . "/utils/utils.php");
 
 header("Content-Type: application/json");
-
 $response = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);
-    $username = $data['username'] ?? '';
-    $password = $data['password'] ?? '';
-    $email = $data['email'] ?? '';
-    $role = $data['role'] ?? 'client';
 
-    // Ensure role is valid
-    $validRoles = ['admin', 'client'];
+    // Récupération des champs requis
+    $nom = $data['nom'] ?? '';
+    $prenom = $data['prenom'] ?? '';
+    $email = $data['email'] ?? '';
+    $telephone = $data['telephone'] ?? '';
+    $password = $data['password'] ?? '';
+    $num_civique = $data['num_civique'] ?? '';
+    $rue = $data['rue'] ?? '';
+    $ville = $data['ville'] ?? '';
+    $code_postal = $data['code_postal'] ?? '';
+    $role = $data['role'] ?? 'usager';
+
+    $validRoles = ['admin', 'usager'];
     if (!in_array($role, $validRoles)) {
         $response['status'] = 'error';
-        $response['message'] = 'Invalid role provided';
+        $response['message'] = 'Rôle invalide.';
         echo json_encode($response);
         exit;
     }
 
-    global $pdo; // Ensure the global $pdo is accessible here
-    $stmt = $pdo->prepare('SELECT * FROM Clients WHERE username = ?');
-    $stmt->execute([$username]);
+    global $pdo;
+    $stmt = $pdo->prepare('SELECT * FROM utilisateur WHERE email = ?');
+    $stmt->execute([$email]);
+
     if ($stmt->fetch()) {
         $response['status'] = 'error';
-        $response['message'] = 'Username already taken';
+        $response['message'] = 'Un compte avec ce courriel existe déjà.';
     } else {
-        if (registerUser($username, $password, $email, $role)) {
+        $success = registerUser($nom, $prenom, $email, $telephone, $password, $num_civique, $rue, $ville, $code_postal, $role);
+        if ($success) {
             $response['status'] = 'success';
-            $response['message'] = 'Signup successful';
+            $response['message'] = 'Inscription réussie';
             $response['redirect'] = '/login';
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Error creating account';
+            $response['message'] = 'Une erreur est survenue lors de l\'inscription.';
         }
     }
 } else {
     $response['status'] = 'error';
-    $response['message'] = 'Invalid request method';
+    $response['message'] = 'Méthode invalide.';
 }
 
 echo json_encode($response);

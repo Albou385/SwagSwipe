@@ -1,19 +1,20 @@
 <?php
 require_once __DIR__ . '/../../config.php';
 
-function loginUser($username, $password) {
+function loginUser($email, $password) {
     $pdo = $GLOBALS['pdo'];
-    $stmt = $pdo->prepare('SELECT * FROM Clients WHERE username = ?');
-    $stmt->execute([$username]);
+    $stmt = $pdo->prepare('SELECT * FROM utilisateur WHERE email = ?');
+    $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        if (session_status() == PHP_SESSION_NONE) {
+    if ($user && password_verify($password, $user['mdp'])) {
+        if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        $_SESSION['user_loggedin'] = $user['id'];
+        $_SESSION['user_loggedin'] = $user['id_user'];
         $_SESSION['user_details'] = [
-            'username' => $user['username'],
+            'nom' => $user['nom'],
+            'prenom' => $user['prenom'],
             'email' => $user['email'],
             'role' => $user['role']
         ];
@@ -22,29 +23,28 @@ function loginUser($username, $password) {
     return false;
 }
 
-function registerUser($username, $password, $email, $role) {
+function registerUser($nom, $prenom, $email, $telephone, $password, $num_civique, $rue, $ville, $code_postal, $role = 'usager') {
     $pdo = $GLOBALS['pdo'];
 
-    $validRoles = ['admin', 'client'];
+    $validRoles = ['admin', 'usager'];
     if (!in_array($role, $validRoles)) {
         throw new Exception('Invalid role provided');
     }
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $pdo->prepare('INSERT INTO Clients (username, password, email, role) VALUES (?, ?, ?, ?)');
-    return $stmt->execute([$username, $passwordHash, $email, $role]);
+    $stmt = $pdo->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, num_civique, rue, ville, code_postal, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    return $stmt->execute([$nom, $prenom, $email, $telephone, $passwordHash, $num_civique, $rue, $ville, $code_postal, $role]);
 }
 
-// The rest of your functions should follow the same pattern:
 function isUserLoggedIn() {
-    if (session_status() == PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     return isset($_SESSION['user_loggedin']);
 }
 
 function logoutUser() {
-    if (session_status() == PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     session_unset();
@@ -59,22 +59,19 @@ function redirectIfNotLoggedIn() {
 }
 
 function ensureLoggedIn() {
-    if (session_status() == PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    if (!isset($_SESSION['usager'])) {
+    if (!isset($_SESSION['user_loggedin'])) {
         header("Location: /login");
         exit();
     }
 }
 
 function isAdmin() {
-    if (session_status() == PHP_SESSION_NONE) {
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    if (isset($_SESSION['user_details']) && $_SESSION['user_details']['role'] === 'admin') {
-        return true;
-    }
-    return false;
+    return isset($_SESSION['user_details']) && $_SESSION['user_details']['role'] === 'admin';
 }
 ?>

@@ -6,27 +6,27 @@ header("Content-Type: application/json");
 $response = [];
 
 try {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $data = json_decode(file_get_contents("php://input"), true);
-        $username = $data['username'] ?? '';
+        $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
 
-        if (loginUser($username, $password)) {
+        if (loginUser($email, $password)) {
             $response['status'] = 'success';
-            $response['message'] = 'Login successful';
-            $response['redirect'] = '/home';
+            $response['message'] = 'Connexion réussie.';
+            $response['redirect'] = '/accueil'; // Redirige vers accueil, change au besoin
         } else {
             $response['status'] = 'error';
-            $response['message'] = 'Invalid username or password';
+            $response['message'] = 'Courriel ou mot de passe invalide.';
             $response['redirect'] = '/login';
         }
     } else {
         $response['status'] = 'error';
-        $response['message'] = 'Invalid request method';
+        $response['message'] = 'Méthode de requête invalide.';
     }
 } catch (Exception $e) {
     $response['status'] = 'error';
-    $response['message'] = 'An error occurred: ' . $e->getMessage();
+    $response['message'] = 'Erreur : ' . $e->getMessage();
 }
 
 echo json_encode($response);

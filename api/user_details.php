@@ -3,17 +3,21 @@ require_once(__DIR__ . "/utils/utils.php");
 
 header("Content-Type: application/json");
 
-if (isset($_SESSION['user_loggedin'])) {
-    $userDetails = $_SESSION['user_details'];
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['user_loggedin']) && isset($_SESSION['user_details'])) {
     echo json_encode([
         'status' => 'success',
-        'data' => $userDetails
+        'data' => $_SESSION['user_details']
     ]);
 } else {
     echo json_encode([
         'status' => 'error',
-        'message' => 'User not logged in',
-        'redirect' => 'login'
+        'message' => 'Utilisateur non connecté',
+        'redirect' => '/login'
     ]);
 }
 ?>
+    

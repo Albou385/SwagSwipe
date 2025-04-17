@@ -1,35 +1,38 @@
 <?php
 require_once(__DIR__ . "/utils/utils.php");
 
-if (isset($_SESSION['user_loggedin']) && $_SESSION['user_details']['role'] === 'admin') {
+header("Content-Type: application/json");
+
+// Vérifie si l'utilisateur est connecté ET admin
+if (isUserLoggedIn() && isAdmin()) {
     try {
         $pdo = $GLOBALS['pdo'];
 
-        // Fetch all clients
-        $stmt = $pdo->prepare('SELECT * FROM Clients');
+        // Récupérer tous les utilisateurs
+        $stmt = $pdo->prepare('SELECT id_user, nom, prenom, email, telephone, ville, code_postal, role FROM utilisateur');
         $stmt->execute();
-        $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode([
             'status' => 'success',
-            'data' => $clients
+            'data' => $utilisateurs
         ]);
     } catch (PDOException $e) {
         echo json_encode([
             'status' => 'error',
-            'message' => 'Database error: ' . $e->getMessage()
+            'message' => 'Erreur de base de données : ' . $e->getMessage()
         ]);
     } catch (Exception $e) {
         echo json_encode([
             'status' => 'error',
-            'message' => 'An unexpected error occurred: ' . $e->getMessage()
+            'message' => 'Erreur inattendue : ' . $e->getMessage()
         ]);
     }
 } else {
     echo json_encode([
         'status' => 'error',
-        'message' => 'Access denied',
-        'redirect' => '/home'
+        'message' => 'Accès refusé',
+        'redirect' => '/403'
     ]);
 }
 ?>
