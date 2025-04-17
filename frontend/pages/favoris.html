@@ -5,34 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SwagSwipe - Favoris</title>
 
-  <!-- JS -->
-  <script defer src="frontend/js/favoris.js"></script>
-  <script src="frontend/js/session_utilisateur.js" defer></script>
-
-
   <!-- CSS -->
-  <link rel="stylesheet" href="frontend/css/styleAccueil.css" />
-  <link rel="stylesheet" href="frontend/css/styleFavoris.css" />
+  <link rel="stylesheet" href="/frontend/css/styleAccueil.css" />
+  <link rel="stylesheet" href="/frontend/css/styleFavoris.css" />
+  
+  <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <!-- JavaScript -->
+  <script src="/frontend/js/session_utilisateur.js" defer></script>
+  <script src="/frontend/js/favoris.js" defer></script>
 </head>
 
 <body class="body-style">
   <!-- En-tête -->
   <header class="header-style">
-    <img src="frontend//img/logo.png" alt="logo" class="logo" />
+    <a href="/">
+      <img src="/frontend/img/logo.png" alt="logo" class="logo" />
+    </a>
     <div class="top-right-buttons" id="zone-utilisateur"></div>
 
     <h1 class="site-title">
-      <a href="swipe.html">SwagSwipe</a>
+      <a href="/swipe">SwagSwipe</a>
     </h1>
     <p class="slogan">Le style à petit prix</p>
-    <div class="nav-style">
-      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-    </div>
+    <nav class="nav-style">
+      <a class="nav-button" href="/">Accueil</a>
+      <a class="nav-button" href="/afficher_produits">Produits</a>
+      <a class="nav-button" href="/favoris">Favoris</a>
+      <a class="nav-button" href="/profil">Profil</a>
+    </nav>
 
     <section class="favorites-header">
       <h2>🧡 Mes Favoris</h2>
@@ -40,14 +43,14 @@
     </section>
   </header>
   
-
   <!-- Grille d'affichage -->
   <div class="produit_favoris">
     <section id="favoritesGrid" class="favorites-container">
       <!-- Les favoris seront injectés ici par JS -->
     </section>
   </div>
-    <!-- Fenêtre modale pour message -->
+  
+  <!-- Fenêtre modale pour message -->
   <div id="modal-message" class="modal" style="display:none;">
     <div class="modal-content">
       <span id="close-modal" class="close">&times;</span>
@@ -58,12 +61,12 @@
         <ul id="history-list" style="font-size: 0.9rem; list-style-type: disc; padding-left: 20px;"></ul>
       </div>      
       <br />
-      <a id="send-whatsapp" class="nav-button" target="_blank">📤 WhatsApp</a>
-      <a id="send-sms" class="nav-button" target="_blank">📱 SMS</a>
-
+      <div class="button-group">
+        <a id="send-whatsapp" class="nav-button" target="_blank">📤 WhatsApp</a>
+        <a id="send-sms" class="nav-button" target="_blank">📱 SMS</a>
+      </div>
     </div>
   </div>
-
 
   <!-- Pied de page -->
   <footer>
@@ -79,7 +82,7 @@
       <!-- Logo -->
       <div class="grid-item">
         <a href="#top">
-          <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
+          <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
         </a>
       </div>
 
@@ -88,12 +91,12 @@
         <div class="footer-app-review">
           <div class="footer-app">
             <a href="#">
-              <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon" />
+              <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon" />
               <p>Télécharger l'app</p>
             </a>
           </div>
           <div class="footer-review">
-            <a href="avis.html">
+            <a href="/avis">
               <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application" />
               <p class="review-text">Laisser un avis</p>
             </a>

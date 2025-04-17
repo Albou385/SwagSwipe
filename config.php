@@ -30,6 +30,7 @@ $options = [
 try {
     // Declare the PDO object as a global variable
     $GLOBALS['pdo'] = new PDO($dsn, $user, $pass, $options);
+    echo "Database connection successful.";
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }

@@ -4,28 +4,211 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SwagSwipe - Profil</title>
-  <link rel="stylesheet" href="frontend//css/styleAccueil.css" />
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/frontend/css/styleAccueil.css" />
+  
+  <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
-  <script src="frontend//js/session_utilisateur.js" defer></script>
+  
+  <!-- JavaScript -->
+  <script src="/frontend/js/session_utilisateur.js" defer></script>
+  <script src="/frontend/js/profil.js" defer></script>
 
+  <style>
+    .profil {
+      margin-top: 100px; 
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.2); 
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px); 
+      border-radius: 10px; 
+      text-align: center;
+      font-size: 16px;
+      font-family: 'Montserrat', sans-serif;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .pdp {
+      width: 150px; 
+      height: 150px; 
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+    
+    .profil h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    
+    .profil p {
+      margin: 8px 0;
+      color: #333;
+    }
+    
+    .profil .nav-button {
+      margin-top: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .profil .nav-button:hover {
+      background-color: #333;
+    }
+    
+    .edit-profile-btn {
+      margin-left: 10px;
+    }
+    
+    .user-products-section {
+      margin-top: 40px;
+      text-align: left;
+    }
+    
+    .user-products-section h3 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .product-card {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .product-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    
+    .product-card h4 {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    
+    .product-price {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    
+    .product-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    .product-actions button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    
+    .edit-btn {
+      background-color: #3498db;
+      color: white;
+    }
+    
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+    
+    .auth-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .loading {
+      position: relative;
+    }
+    
+    .loading::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+    
+    .loading::before {
+      content: "Chargement...";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      color: #333;
+    }
+    
+    @media (max-width: 768px) {
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .pdp {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
 </head>
 
 <body class="body-style">
   <header class="header-style">
-    <img src="frontend/img/logo.png" alt="logo" class="logo" />
+    <a href="/">
+      <img src="/frontend/img/logo.png" alt="logo" class="logo" />
+    </a>
     <div class="top-right-buttons" id="zone-utilisateur"></div>
 
     <h1 class="site-title">
-      <a href="swipe.html">SwagSwipe</a>
+      <a href="/swipe">SwagSwipe</a>
     </h1>
     <p class="slogan">Le style à petit prix</p>
-    <div class="nav-style">
-      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
-      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
-      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
-      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
-    </div>
+    <nav class="nav-style">
+      <a class="nav-button" href="/">Accueil</a>
+      <a class="nav-button" href="/afficher_produits">Produits</a>
+      <a class="nav-button" href="/favoris">Favoris</a>
+      <a class="nav-button" href="/profil">Profil</a>
+    </nav>
   </header>
 
   <div class="profil">
@@ -33,7 +216,8 @@
     <h2>Jean Dupont</h2>
     <p>Email : jean.dupont@email.com</p>
     <p>Localisation : Canada, Montréal, J0Y5V3</p>
-    <button class="nav-button" onclick="window.location.href='ajouter_produit.html'">Ajouter un produit</button>
+    <a href="/ajouter_produit" class="nav-button">Ajouter un produit</a>
+    <!-- Additional content will be dynamically added by JavaScript -->
   </div>
 
   <footer>
@@ -49,7 +233,7 @@
       <!-- Section Logo -->
       <div class="grid-item">
         <a href="#top">
-          <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
+          <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
         </a>
       </div>
 
@@ -58,13 +242,13 @@
         <div class="footer-app-review">
           <div class="footer-app">
             <a href="#">
-              <img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon" />
+              <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon" />
               <p>Télécharger l'app</p>
             </a>
           </div>
 
           <div class="footer-review">
-            <a href="avis.html">
+            <a href="/avis">
               <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application" />
               <p class="review-text">Laisser un avis</p>
             </a>
@@ -77,6 +261,5 @@
       <p>&copy; 2025 SwagSwipe</p>
     </div>
   </footer>
-  
 </body>
 </html>
