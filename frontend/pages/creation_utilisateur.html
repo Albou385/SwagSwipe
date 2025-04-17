@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Création de Compte - SwagSwipe</title>
+
+  <!-- Fichiers CSS -->
+  <link rel="stylesheet" href="../assets/css/styleAccueil.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="../assets/js/session_utilisateur.js" defer></script>
+
+
+  <!-- Script de validation -->
+  <script defer src="../assets/js/inscription.js"></script>
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: black;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+    }
+    button:hover {
+      background-color: rgb(120, 122, 124);
+      color: #fff;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .form-section {
+      margin-bottom: 20px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .form-item {
+      margin-bottom: 20px;
+    }
+    #message-erreur {
+      color: red;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body class="body-style">
+  <header class="header-style">
+    <img src="../assets/img/logo.png" alt="logo" class="logo" />
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
+    <h1 class="site-title">
+      <a href="swipe.html">SwagSwipe</a>
+    </h1>
+    <p class="slogan">Le style à petit prix</p>
+    <div class="nav-style">
+      <button class="nav-button" onclick="window.location.href='accueil.html'">Accueil</button>
+      <button class="nav-button" onclick="window.location.href='afficher_produits.html'">Produits</button>
+      <button class="nav-button" onclick="window.location.href='favoris.html'">Favoris</button>
+      <button class="nav-button" onclick="window.location.href='profil.html'">Profil</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Créer un Compte</h1>
+
+    <!--
+    <div id="verification-section" style="display:none; margin-top: 20px;">
+      <h2>Vérification</h2>
+      <label for="code-email">Code reçu par courriel :</label>
+      <input type="text" id="code-email" placeholder="Entrez le code reçu par courriel" required />
+      <label for="code-sms">Code reçu par SMS :</label>
+      <input type="text" id="code-sms" placeholder="Entrez le code reçu par SMS" required />
+    </div>
+  -->
+
+    <form method= "post" id="formulaire-inscription" enctype="multipart/form-data" action="../assets/php/SeInscrire.php">
+      <div id="message-erreur"></div>
+
+      <!-- Section Contact -->
+      <div class="form-section">
+        <h2>Contact</h2>
+        <div class="grid-container">
+          <div class="form-item">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Ex: Jean" required />
+          </div>
+          <div class="form-item">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Ex: Dupont" required />
+          </div>
+          <div class="form-item">
+            <label for="email">Adresse Courriel</label>
+            <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required />
+          </div>
+          <div class="form-item">
+            <label for="telephone">Numéro de Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="Ex: 5141234567" maxlength="10" pattern="[0-9]{10}" title="Le numéro de téléphone doit contenir 10 chiffres" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Adresse -->
+      <div class="form-section">
+        <h2>Adresse</h2>
+        <div class="grid-container">
+          <div class="form-item">
+            <label for="numero_civil">Numéro civique</label>
+            <input type="text" id="numero_civil" name="numero_civil" required />
+          </div>
+          <div class="form-item">
+            <label for="rue">Rue</label>
+            <input type="text" id="rue" name="rue" required />
+          </div>
+          <div class="form-item">
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="ville" required />
+          </div>
+          <div class="form-item">
+            <label for="code_postal">Code Postal</label>
+            <input type="text" id="code_postal" name="code_postal" placeholder="Ex: H2X 1Z5" maxlength="7" pattern="[A-Za-z0-9]{3} [A-Za-z0-9]{3}" title="Format: H2X 1Z5" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="form-section">
+        <h2>Informations d'inscription</h2>
+        <div class="form-item">
+          <label for="mot_de_passe">Mot de Passe</label>
+          <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Choisissez un mot de passe" required />
+        </div>
+        <div class="form-item">
+          <label for="confirmation_mdp">Confirmer le Mot de Passe</label>
+          <input type="password" id="confirmation_mdp" name="confirmation_mdp" placeholder="Confirmez votre mot de passe" required />
+        </div>
+      </div>
+
+      <!-- Image de profil -->
+      <div class="form-section">
+        <h2>Image de Profil</h2>
+        <div class="form-item">
+          <label for="image_profil">Télécharger une image (PNG uniquement)</label>
+          <input type="file" id="image_profil" name="image_profil" accept="image/png" />
+        </div>
+      </div>
+
+      
+
+      <!-- Bouton -->
+      <div class="form-section">
+        <button type="submit">S'inscrire</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <div class="grid-container">
+      <div class="grid-item">
+        <h2>Contact</h2>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon" /> support@swagswipe.com</p>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon" /> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+        <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon" /> +1 (514) 547-8965</p>
+      </div>
+      <div class="grid-item">
+        <a href="#top">
+          <img src="../assets/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo" />
+        </a>
+      </div>
+      <div class="grid-item">
+        <div class="footer-app-review">
+          <div class="footer-app">
+            <a href="#"><img src="../assets/img/phone.png" alt="Télécharger l'app" class="application-icon" /><p>Télécharger l'app</p></a>
+          </div>
+          <div class="footer-review">
+            <a href="avis.html">
+              <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application" />
+              <p class="review-text">Laisser un avis</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="droit_auteur">
+      <p>&copy; 2025 SwagSwipe</p>
+    </div>
+  </footer>
+</body>
+</html>
