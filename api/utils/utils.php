@@ -76,11 +76,6 @@ function requireLogin(): void
     }
 }
 
-function isAdmin(): bool
-{
-    return isLoggedIn() && $_SESSION['utilisateur']['role'] === 'admin';
-}
-
 function logoutUser(): void
 {
     session_unset();

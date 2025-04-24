@@ -9,15 +9,50 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    $data = json_decode(file_get_contents('php://input'), true);
+    // Validation minimale
+    if (
+        empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['email']) ||
+        empty($_POST['mdp']) || empty($_POST['telephone'])
+    ) {
+        throw new Exception("Certains champs obligatoires sont manquants.");
+    }
 
+    // Gestion de l’image
+    $imagePath = '';
+    if (isset($_FILES['image_profil']) && $_FILES['image_profil']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../frontend/img/users/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $ext = pathinfo($_FILES['image_profil']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('avatar_') . '.' . $ext;
+        $targetPath = $uploadDir . $filename;
+
+        if (move_uploaded_file($_FILES['image_profil']['tmp_name'], $targetPath)) {
+            $imagePath = 'img/users/' . $filename;
+        } else {
+            throw new Exception("Erreur lors de l’upload de l’image.");
+        }
+    }
+
+    // Lecture des données POST
+    $nom       = $_POST['nom'];
+    $prenom    = $_POST['prenom'];
+    $email     = $_POST['email'];
+    $mdp       = $_POST['mdp'];
+    $telephone = $_POST['telephone'];
+    $numero    = $_POST['numero']        ?? '';
+    $rue       = $_POST['rue']           ?? '';
+    $ville     = $_POST['ville']         ?? '';
+    $code_postal = $_POST['code_postal'] ?? '';
+    $role      = 'usager';
+
+    // Appel de la fonction d’inscription
     registerUser(
-        $data['nom']       ?? '',
-        $data['prenom']    ?? '',
-        $data['email']     ?? '',
-        $data['password']  ?? '',
-        $data['telephone'] ?? '',
-        $data['role']      ?? 'usager'
+        $nom, $prenom, $email, $mdp, $telephone,
+        $numero, $rue, $ville, $code_postal,
+        $imagePath, $role
     );
 
     echo json_encode(['status'=>'success','redirect'=>'/login']);

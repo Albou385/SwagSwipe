@@ -1,10 +1,4 @@
-/**
- * inscription.js
- * Handles user registration form validation and submission
- */
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Form and form elements
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('formulaire-inscription');
     const errorContainer = document.getElementById('message-erreur');
     const passwordInput = document.getElementById('mot_de_passe');
@@ -14,219 +8,166 @@ document.addEventListener('DOMContentLoaded', function() {
     const postalCodeInput = document.getElementById('code_postal');
     const profileImageInput = document.getElementById('image_profil');
     const submitButton = form.querySelector('button[type="submit"]');
-    
-    // Postal code formatter
-    postalCodeInput.addEventListener('input', function(e) {
+
+    // Formattage du code postal
+    postalCodeInput.addEventListener('input', function (e) {
         let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-        
         if (value.length > 3) {
             value = value.slice(0, 3) + ' ' + value.slice(3, 6);
         }
-        
         e.target.value = value;
     });
-    
-    // Phone number formatter
-    phoneInput.addEventListener('input', function(e) {
+
+    // Formattage téléphone
+    phoneInput.addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, '');
-        
         if (value.length > 10) {
             value = value.slice(0, 10);
         }
-        
         e.target.value = value;
     });
-    
-    // Password strength check
+
+    // Vérification force du mot de passe
     passwordInput.addEventListener('input', checkPasswordStrength);
-    
     function checkPasswordStrength() {
         const password = passwordInput.value;
+        const feedbackId = 'password-strength';
+        document.getElementById(feedbackId)?.remove();
+
         let strength = 0;
-        
-        // Remove any existing password feedback
-        const existingFeedback = document.getElementById('password-strength');
-        if (existingFeedback) {
-            existingFeedback.remove();
+        if (password.length >= 6) {
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z\d]/.test(password)) strength++;
         }
-        
+
+        let message = '', level = '';
         if (password.length < 6) {
-            addPasswordFeedback('faible', 'Le mot de passe doit contenir au moins 6 caractères.');
-            return;
-        }
-        
-        // Check for mixed case
-        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
-            strength += 1;
-        }
-        
-        // Check for numbers
-        if (password.match(/\d/)) {
-            strength += 1;
-        }
-        
-        // Check for special characters
-        if (password.match(/[^a-zA-Z\d]/)) {
-            strength += 1;
-        }
-        
-        // Determine strength level
-        let strengthText, message;
-        if (strength === 1) {
-            strengthText = 'faible';
+            message = 'Le mot de passe doit contenir au moins 6 caractères.';
+            level = 'faible';
+        } else if (strength === 1) {
             message = 'Mot de passe faible. Ajoutez des majuscules, chiffres ou caractères spéciaux.';
+            level = 'faible';
         } else if (strength === 2) {
-            strengthText = 'moyen';
             message = 'Mot de passe moyen. Ajoutez un autre type de caractère pour plus de sécurité.';
-        } else if (strength >= 3) {
-            strengthText = 'fort';
-            message = 'Mot de passe fort!';
-        }
-        
-        addPasswordFeedback(strengthText, message);
-    }
-    
-    function addPasswordFeedback(strength, message) {
-        const feedback = document.createElement('div');
-        feedback.id = 'password-strength';
-        feedback.className = `password-strength ${strength}`;
-        feedback.textContent = message;
-        
-        if (strength === 'faible') {
-            feedback.style.color = 'red';
-        } else if (strength === 'moyen') {
-            feedback.style.color = 'orange';
+            level = 'moyen';
         } else {
-            feedback.style.color = 'green';
+            message = 'Mot de passe fort!';
+            level = 'fort';
         }
-        
-        // Insert after password field
+
+        const feedback = document.createElement('div');
+        feedback.id = feedbackId;
+        feedback.className = `password-strength ${level}`;
+        feedback.textContent = message;
+        feedback.style.color = level === 'faible' ? 'red' : level === 'moyen' ? 'orange' : 'green';
         passwordInput.parentNode.insertBefore(feedback, passwordInput.nextSibling);
     }
-    
-    // Confirm password match check
-    confirmPasswordInput.addEventListener('input', function() {
-        const existingFeedback = document.getElementById('password-match');
-        if (existingFeedback) {
-            existingFeedback.remove();
-        }
-        
+
+    // Vérification de correspondance des mots de passe
+    confirmPasswordInput.addEventListener('input', function () {
+        const feedbackId = 'password-match';
+        document.getElementById(feedbackId)?.remove();
+
         if (confirmPasswordInput.value && confirmPasswordInput.value !== passwordInput.value) {
             const feedback = document.createElement('div');
-            feedback.id = 'password-match';
+            feedback.id = feedbackId;
             feedback.style.color = 'red';
             feedback.textContent = 'Les mots de passe ne correspondent pas.';
             confirmPasswordInput.parentNode.insertBefore(feedback, confirmPasswordInput.nextSibling);
         }
     });
-    
-    // Image preview
+
+    // Prévisualisation image
     if (profileImageInput) {
-        profileImageInput.addEventListener('change', function() {
+        profileImageInput.addEventListener('change', function () {
+            const file = this.files[0];
             const previewContainer = document.getElementById('image-preview') || createImagePreviewContainer();
-            
-            if (this.files && this.files[0]) {
+
+            if (file && file.type === 'image/png') {
                 const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="Aperçu de l'image" style="max-width: 200px; max-height: 200px;">`;
+                reader.onload = e => {
+                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="Aperçu" style="max-width:200px;">`;
                     previewContainer.style.display = 'block';
                 };
-                
-                reader.readAsDataURL(this.files[0]);
+                reader.readAsDataURL(file);
             } else {
-                previewContainer.style.display = 'none';
+                previewContainer.innerHTML = '<p style="color:red;">Veuillez sélectionner un fichier PNG.</p>';
+                previewContainer.style.display = 'block';
+                this.value = '';
             }
         });
     }
-    
+
     function createImagePreviewContainer() {
         const container = document.createElement('div');
         container.id = 'image-preview';
         container.style.marginTop = '10px';
         container.style.textAlign = 'center';
         container.style.display = 'none';
-        
         profileImageInput.parentNode.appendChild(container);
         return container;
     }
-    
-    // Form validation
-    form.addEventListener('submit', async function(e) {
+
+    // Validation finale du formulaire
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
-        
-        // Clear previous errors
         errorContainer.innerHTML = '';
         errorContainer.style.display = 'none';
-        
+
         const errors = [];
-        
-        // Validate password match
+
         if (passwordInput.value !== confirmPasswordInput.value) {
             errors.push('Les mots de passe ne correspondent pas.');
         }
-        
-        // Validate password length
+
         if (passwordInput.value.length < 6) {
             errors.push('Le mot de passe doit contenir au moins 6 caractères.');
         }
-        
-        // Validate email format
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailInput.value)) {
-            errors.push('L\'adresse courriel n\'est pas valide.');
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+            errors.push('Adresse courriel invalide.');
         }
-        
-        // Validate phone format
+
         if (phoneInput.value.length !== 10) {
-            errors.push('Le numéro de téléphone doit contenir 10 chiffres.');
+            errors.push('Numéro de téléphone invalide.');
         }
-        
-        // Validate postal code format
-        const postalCodeRegex = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
-        if (!postalCodeRegex.test(postalCodeInput.value)) {
-            errors.push('Le code postal n\'est pas valide. Format attendu: A1A 1A1');
+
+        if (!/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(postalCodeInput.value)) {
+            errors.push('Code postal invalide. Format attendu : A1A 1A1');
         }
-        
-        // Display errors if any
+
         if (errors.length > 0) {
-            errorContainer.innerHTML = errors.map(error => `<p>${error}</p>`).join('');
+            errorContainer.innerHTML = errors.map(e => `<p>${e}</p>`).join('');
             errorContainer.style.display = 'block';
-            errorContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            errorContainer.scrollIntoView({ behavior: 'smooth' });
             return;
         }
-        
-        // Disable submit button to prevent multiple submissions
+
+        // Désactivation du bouton
         submitButton.disabled = true;
         submitButton.innerHTML = 'Inscription en cours...';
-        
-        // Submit form data
+
         try {
             const formData = new FormData(form);
-            
             const response = await fetch('/api/signup', {
                 method: 'POST',
                 body: formData
             });
-            
+
             const result = await response.json();
-            
+
             if (result.status === 'success') {
-                // Redirect to login page
                 window.location.href = result.redirect || '/login';
             } else {
-                // Display error message
-                errorContainer.innerHTML = `<p>${result.message || 'Une erreur est survenue lors de l\'inscription.'}</p>`;
-                errorContainer.style.display = 'block';
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'S\'inscrire';
+                throw new Error(result.message || 'Erreur inconnue');
             }
         } catch (error) {
-            console.error('Error during registration:', error);
-            errorContainer.innerHTML = '<p>Erreur de connexion au serveur. Veuillez réessayer plus tard.</p>';
+            console.error('Erreur:', error);
+            errorContainer.innerHTML = `<p>${error.message}</p>`;
             errorContainer.style.display = 'block';
             submitButton.disabled = false;
-            submitButton.innerHTML = 'S\'inscrire';
+            submitButton.innerHTML = "S'inscrire";
         }
     });
 });

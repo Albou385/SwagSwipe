@@ -7,6 +7,8 @@ require_once __DIR__ . '/router.php';
 
 // Home
 get('/', 'frontend/pages/accueil.html');
+get('/home', 'frontend/pages/accueil.html');
+
 
 // Auth forms
 get('/login',  'frontend/pages/connexion.html');
@@ -68,19 +70,6 @@ post('/api/image',    'api/image.php');      // upload d’image produit
 
 get('/api/utilisateurs', 'api/utilisateurs.php');   // admin-only user list
 
-
-/* ------------------------------------------------------------------
-|  Admin page (protected)
-* -----------------------------------------------------------------*/
-
-get('/admin', function () {
-    if (isAdmin()) {
-        include_once __DIR__ . '/frontend/pages/admin.html';
-    } else {
-        header('Location: /403');
-        exit;
-    }
-});
 
 
 /* ------------------------------------------------------------------

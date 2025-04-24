@@ -1,187 +1,190 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwagSwipe - Ajouter un Produit</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SwagSwipe - Ajouter un Produit</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/frontend/css/styleAccueil.css">
-    
-    <!-- Polices -->
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- JS -->
-    <script src="/frontend/js/session_utilisateur.js" defer></script>
-    <script src="/frontend/js/ajouter_produit.js" defer></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="/frontend/css/styleAccueil.css"/>
 
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: black;
-        }
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            background-color: black;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            font-family: 'Montserrat', sans-serif;
-            text-decoration: none;
-        }
-        button:disabled {
-            background-color: #aaa;
-            cursor: not-allowed;
-        }
-        .image-preview {
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-        }
-        .required-field::after {
-            content: "*";
-            color: red;
-            margin-left: 4px;
-        }
-    </style>
+  <!-- Polices -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+
+  <!-- JS -->
+  <script src="/frontend/js/session_utilisateur.js" defer></script>
+  <script src="/frontend/js/ajouter_product.js" defer></script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: black;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      background-color: black;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+    }
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+    .image-preview {
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+    .required-field::after {
+      content: "*";
+      color: red;
+      margin-left: 4px;
+    }
+  </style>
 </head>
 
 <body class="body-style">
-    <!-- ✅ En-tête -->
-    <header class="header-style">
-        <a href="/">
-            <img src="/frontend/img/logo.png" alt="logo" class="logo">
+  <header class="header-style">
+    <a href="/">
+      <img src="/frontend/img/logo.png" alt="logo" class="logo" />
+    </a>
+    <div class="top-right-buttons" id="zone-utilisateur"></div>
+
+    <h1 class="site-title">
+      <a href="/swipe">SwagSwipe</a>
+    </h1>
+    <p class="slogan">Le style à petit prix</p>
+    <nav class="nav-style">
+      <a class="nav-button" href="/">Accueil</a>
+      <a class="nav-button" href="/afficher_produits">Produits</a>
+      <a class="nav-button" href="/favoris">Favoris</a>
+      <a class="nav-button" href="/profil">Profil</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Ajouter un Produit</h1>
+
+    <form id="formAjoutProduit" method="POST" enctype="multipart/form-data" action="/api/image">
+      <label for="nom" class="required-field">Nom du produit</label>
+      <input type="text" id="nom" name="nom" required />
+
+      <label for="marque" class="required-field">Marque du produit</label>
+      <input type="text" id="marque" name="marque" required />
+
+      <label for="prix" class="required-field">Prix du produit ($)</label>
+      <input type="number" id="prix" name="prix" required step="0.01" min="0.01" />
+
+      <label for="taille" class="required-field">Grandeur</label>
+      <select id="taille" name="taille" required>
+        <option value="">-- Sélectionnez une grandeur --</option>
+        <option value="xsmall">Extra Small</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+        <option value="xlarge">Extra Large</option>
+      </select>
+
+      <label for="conditions" class="required-field">Condition du produit</label>
+      <select id="conditions" name="conditions" required>
+        <option value="">-- Sélectionnez une condition --</option>
+        <option value="Neuf">Neuf</option>
+        <option value="Très bon état">Très bon état</option>
+        <option value="Bon état">Bon état</option>
+        <option value="Acceptable">Acceptable</option>
+      </select>
+
+      <label for="categorie" class="required-field">Type de produit</label>
+      <select id="categorie" name="categorie" required>
+        <option value="">-- Sélectionnez un type --</option>
+        <option value="chandail">Chandail</option>
+        <option value="pantalon">Pantalon</option>
+        <option value="short">Short</option>
+        <option value="chapeau">Chapeau</option>
+        <option value="robe">Robe</option>
+        <option value="jupe">Jupe</option>
+        <option value="camisole">Camisole</option>
+        <option value="soulier">Soulier</option>
+        <option value="plein_air">Vêtement plein air</option>
+      </select>
+
+      <label for="image" class="required-field">Image du produit</label>
+      <input type="file" id="image" name="image" accept="image/*" required />
+      <div id="image-preview" class="image-preview"></div>
+
+      <label for="description" class="required-field">Description</label>
+      <textarea id="description" name="description" rows="4" required placeholder="Décrivez le produit ici..."></textarea>
+
+      <button id="btnAjouter" type="submit">Ajouter le produit</button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="grid-container">
+      <div class="grid-item">
+        <h2>Contact</h2>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
+        <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
+        <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
+      </div>
+      <div class="grid-item">
+        <a href="#top">
+          <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo"/>
         </a>
-        <div class="top-right-buttons" id="zone-utilisateur"></div>
-
-        <h1 class="site-title">
-            <a href="/swipe">SwagSwipe</a>
-        </h1>
-        <p class="slogan">Le style à petit prix</p>
-        <nav class="nav-style">
-            <a class="nav-button" href="/">Accueil</a>
-            <a class="nav-button" href="/afficher_produits">Produits</a>
-            <a class="nav-button" href="/favoris">Favoris</a>
-            <a class="nav-button" href="/profil">Profil</a>
-        </nav>
-    </header>
-
-    <!-- ✅ Formulaire -->
-    <div class="container">
-        <h1>Ajouter un Produit</h1>
-
-        <form id="product-form" method="post" action="/api/image" enctype="multipart/form-data">
-            <label for="nom_produit" class="required-field">Nom du produit</label>
-            <input type="text" id="nom_produit" name="nom_produit" required>
-
-            <label for="marque_produit" class="required-field">Marque du produit</label>
-            <input type="text" id="marque_produit" name="marque_produit" required>
-
-            <label for="prix_produit" class="required-field">Prix du produit ($)</label>
-            <input type="number" id="prix_produit" name="prix_produit" required step="0.01" min="0.01">
-
-            <label for="grandeur_produit" class="required-field">Grandeur</label>
-            <select id="grandeur_produit" name="grandeur_produit" required>
-                <option value="">-- Sélectionnez une grandeur --</option>
-                <option value="xsmall">Extra Small</option>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-                <option value="xlarge">Extra Large</option>
-            </select>
-
-            <label for="type_produit" class="required-field">Type de produit</label>
-            <select id="type_produit" name="type_produit" required>
-                <option value="">-- Sélectionnez un type --</option>
-                <option value="chandail">Chandail</option>
-                <option value="pantalon">Pantalon</option>
-                <option value="short">Short</option>
-                <option value="chapeau">Chapeau</option>
-                <option value="robe">Robe</option>
-                <option value="jupe">Jupe</option>
-                <option value="camisole">Camisole</option>
-                <option value="soulier">Soulier</option>
-                <option value="plein_air">Vêtement plein air</option>
-            </select>
-
-            <label for="fichier_produit" class="required-field">Ajouter une image (png uniquement)</label>
-            <input type="file" id="fichier_produit" name="fichier_produit" accept="image/png" required>
-            <div id="image-preview" class="image-preview"></div>
-
-            <label for="description_produit" class="required-field">Description du produit</label>
-            <textarea id="description_produit" name="description_produit" rows="4" required 
-                      placeholder="Décrivez le produit ici..."></textarea>
-
-            <button id="btnAjouter" type="submit" disabled>Ajouter le produit</button>
-        </form>
+      </div>
+      <div class="grid-item">
+        <div class="footer-app-review">
+          <div class="footer-app">
+            <a href="#">
+              <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon"/>
+              <p>Télécharger l'app</p>
+            </a>
+          </div>
+          <div class="footer-review">
+            <a href="/avis">
+              <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application"/>
+              <p class="review-text">Laisser un avis</p>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- ✅ Pied de page -->
-    <footer>
-        <div class="grid-container">
-            <div class="grid-item">
-                <h2>Contact</h2>
-                <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
-                <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
-                <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
-            </div>
-
-            <div class="grid-item">
-                <a href="#top">
-                    <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
-                </a>
-            </div>
-
-            <div class="grid-item">
-                <div class="footer-app-review">
-                    <div class="footer-app">
-                        <a href="#">
-                            <img src="/frontend/img/phone.png" alt="Télécharger l'app" class="application-icon">
-                            <p>Télécharger l'app</p>
-                        </a>
-                    </div>
-                    <div class="footer-review">
-                        <a href="/avis">
-                            <img src="https://static.vecteezy.com/system/resources/previews/016/717/559/non_2x/customer-satisfaction-review-free-png.png" alt="Avis" class="Application">
-                            <p class="review-text">Laisser un avis</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="droit_auteur">
-            <p>&copy; 2025 SwagSwipe</p>
-        </div>
-    </footer>
+    <div class="droit_auteur">
+      <p>&copy; 2025 SwagSwipe</p>
+    </div>
+  </footer>
 </body>
 </html>
