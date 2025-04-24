@@ -7,55 +7,25 @@
 
     <!-- CSS depuis dossier css -->
     <link rel="stylesheet" href="/frontend/css/styleAfficher_Produits.css">
-    
+
     <!-- Polices -->
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- JS depuis dossier js -->
-    <script src="/frontend/js/session_utilisateur.js" defer></script>
-    <script src="/frontend/js/script.js" defer></script>
+
+    <!-- JS -->
+    <script defer src="/frontend/js/session_utilisateur.js"></script>
+    <script defer src="/frontend/js/produits.js"></script>
 
     <style>
-        /* Additional styles for product cards */
         .product-card {
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
         }
-        
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .product-rating {
-            margin: 5px 0;
-            color: #f1c40f;
-        }
-        
-        .product-rating .rating-value {
-            color: #555;
-            font-size: 0.8em;
-            margin-left: 5px;
-        }
-        
-        .no-rating {
-            color: #999;
-            font-size: 0.8em;
-        }
-        
-        .btn-details {
-            display: block;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            padding: 6px 0;
-            border-radius: 4px;
-            margin: 8px 0;
-        }
-        
         .btn-favori {
             display: block;
             width: 100%;
@@ -66,41 +36,17 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
-        .btn-favori:hover {
-            background-color: #e74c3c;
-            color: white;
-        }
-        
+        .btn-favori:hover,
         .btn-favori.active {
             background-color: #e74c3c;
             color: white;
         }
-        
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 30px;
-            font-size: 1.2em;
-            color: #555;
-        }
-        
-        .error-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        
         .loading {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: a20px;
+            padding: 20px;
         }
-        
         .loading::after {
             content: "";
             width: 30px;
@@ -111,42 +57,20 @@
             animation: spin 1s linear infinite;
             margin-left: 10px;
         }
-        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .search-filter {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-filter input,
-            .search-filter select {
-                width: 100%;
-                margin: 5px 0;
-            }
-        }
     </style>
 </head>
-
 <body class="body-style">
-    <!-- ✅ Arrière-plan flou -->
     <div class="products-blur-background"></div>
-
-    <!-- ✅ En-tête -->
     <header class="header-style">
         <a href="/">
             <img src="/frontend/img/logo.png" alt="logo" class="logo">
         </a>
         <div class="top-right-buttons" id="zone-utilisateur"></div>
-
-        <h1 class="site-title">
-            <a href="/swipe">SwagSwipe</a>
-        </h1>    
+        <h1 class="site-title"><a href="/swipe">SwagSwipe</a></h1>
         <p class="slogan">Le style à petit prix</p>
         <nav class="nav-style">
             <a class="nav-button" href="/">Accueil</a>
@@ -154,8 +78,6 @@
             <a class="nav-button" href="/favoris">Favoris</a>
             <a class="nav-button" href="/profil">Profil</a>
         </nav>
-
-        <!-- ✅ Barre de recherche & filtres -->
         <div class="search-filter">
             <input type="text" id="searchBar" placeholder="Rechercher un produit...">
             <select id="filterCategory">
@@ -179,36 +101,26 @@
         </div>
     </header>
 
-    <!-- ✅ Contenu des produits -->
     <div class="products-content-container">
-        <section id="productGrid" class="grid-container">
-            <!-- Produits injectés dynamiquement -->
-        </section>
-
+        <section id="productGrid" class="grid-container"></section>
         <div class="produit_chargement">
             <div id="loading" class="loading">Chargement des produits...</div>
         </div>
     </div>
 
-    <!-- ✅ Pied de page -->
     <footer>
         <div class="grid-container">
-            <!-- Section Contact -->
             <div class="grid-item">
                 <h2>Contact</h2>
                 <p><img src="https://cdn-icons-png.flaticon.com/512/6244/6244438.png" alt="Email" class="footer-icon"> support@swagswipe.com</p>
                 <p><img src="https://cdn-icons-png.flaticon.com/512/4942/4942051.png" alt="Adresse" class="footer-icon"> 6435 Rue du Style, Montréal, J2M 8R5, QC</p>
                 <p><img src="https://images.seeklogo.com/logo-png/24/2/phone-logo-png_seeklogo-248712.png" alt="Téléphone" class="footer-icon"> +1 (514) 547-8965</p>
             </div>
-
-            <!-- Section Logo -->
             <div class="grid-item">
                 <a href="#top">
                     <img src="/frontend/img/logo.png" alt="Logo SwagSwipe" class="footer-logo large-logo">
                 </a>
             </div>
-
-            <!-- Section App et Avis -->
             <div class="grid-item">
                 <div class="footer-app-review">
                     <div class="footer-app">
