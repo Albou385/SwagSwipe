@@ -1,4 +1,5 @@
-[
+{
+  "produits": [
   {
     "id": 3,
     "nom": "Soulier Sport",
@@ -798,4 +799,76 @@
         "ville": "Longueuil",
         "pays": "Canada"
       }
+    ],
+    "clients": [
+      {
+        "id": "1",   
+        "nom": "Lavoie",       
+        "prenom":"Sophie",     
+        "email":"sophie.lavoie@example.com",      
+        "telephone" : "+1 514-123-4567",  
+        "mdp" :  "sophie123!",       
+        "num_civique" :"345",
+        "rue" : "Rue Sherbrooke",        
+        "ville" : "Montréal",      
+        "code_postal" : "H2X 1X4",
+        "role" :"admin"
+      },
+      {
+        "id": "2",   
+        "nom": "Martin",       
+        "prenom":"Vincent",     
+        "email":"vincent.martin.2@ens.etsmtl.ca",      
+        "telephone" : "+1 514-153-4567",  
+        "mdp" :  "vincent123",       
+        "num_civique" :"435",
+        "rue" : "boulevard René-Lévesque Ouest",        
+        "ville" : "Montréal",      
+        "code_postal" : "H3G 1T1",
+        "role" :"admin"
+      },
+      {
+        "id": "3",   
+        "nom": "Stoia",       
+        "prenom":"Sandra Maria",     
+        "email":"sandra-maria.stoia.1@ens.etsmtl.ca",      
+        "telephone" : "+1 514-123-4565",  
+        "mdp" :  "sandra123!",       
+        "num_civique" :"567",
+        "rue" : "rue Saint-Jean",        
+        "ville" : "Québec ",      
+        "code_postal" : "G1R 1P6",
+        "role" :"admin"
+      },
+      {
+        "id": "4",   
+        "nom": "Wilmot",       
+        "prenom":"Xavier",     
+        "email":"xavier.wilmot.1@ens.etsmtl.ca",      
+        "telephone" : "+1 514-333-4567",  
+        "mdp" :  "xavier123!",       
+        "num_civique" :"45",
+        "rue" : " route 117",        
+        "ville" : "Sainte-Agathe-des-Monts",      
+        "code_postal" : "J8C 2H7",
+        "role" :"admin"
+      },
+      {
+        "id": "5",   
+        "nom": "Berard",       
+        "prenom":"Nicolas",     
+        "email":"nical.berard.1.1@ens.etsmtl.ca",      
+        "telephone" : "+1 515-123-4567",  
+        "mdp" :  "nicolas123!",       
+        "num_civique" :"238",
+        "rue" : " avenue du Golf",        
+        "ville" : "Laval",      
+        "code_postal" : "H7N 3Y2",
+        "role" :"admin"
+      }
     ]
+  }
+
+
+
+
