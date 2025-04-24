@@ -19,16 +19,16 @@ $port = '3306';
 if ($isCloudEnv) {
     // ➤ ENVIRONNEMENT CLOUD (Azure)
     $host = "swagswipeserveur.mysql.database.azure.com";
-    $user = "adminSwag";
-    $pass = "SwaggySwipe123";
-    $ssl_ca = __DIR__ . '/certs/DigiCertGlobalRootCA.crt.pem'; // adapte le chemin
+    $user = "xavier123";
+    $pass = "Swagswipe1234";
+    //$ssl_ca = __DIR__ . '/certs/DigiCertGlobalRootCA.crt.pem'; // adapte le chemin
 
     $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
-        PDO::MYSQL_ATTR_SSL_CA       => $ssl_ca,
-        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        //PDO::MYSQL_ATTR_SSL_CA       => $ssl_ca,
+        //PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
     ];
 } else {
     // ➤ ENVIRONNEMENT LOCAL (XAMPP)
