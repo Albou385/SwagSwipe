@@ -67,7 +67,6 @@ post('/api/image',    'api/image.php');      // upload d’image produit
 * -----------------------------------------------------------------*/
 
 get('/api/utilisateurs', 'api/utilisateurs.php');   // admin-only user list
-get('/api/hello-world',  'api/hello-world.php');    // test route
 
 
 /* ------------------------------------------------------------------
