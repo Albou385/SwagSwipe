@@ -1,5 +1,10 @@
+# Active le moteur de réécriture d’URL
 RewriteEngine On
-RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf)$
-RewriteRule (.*) router.php [QSA,L]
 
-# Toutes les requêtes qu'il va recevoir, il va l'envoyer à routes php
+# Ne pas rediriger les fichiers statiques existants
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Redirige tout le reste vers router.php
+RewriteRule ^(.*)$ router.php [QSA,L]
